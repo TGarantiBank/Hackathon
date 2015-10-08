@@ -1,2 +1,1 @@
-# Hackhaton
-Hackhaton Repository
+# Garanti Hackhaton
