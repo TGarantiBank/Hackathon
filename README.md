@@ -1,2 +1,2 @@
 # Garanti Hackhaton
-Cep Bank ve Sanal Pos servisleri
+Cep Bank ve Sanal Pos servisleri ..

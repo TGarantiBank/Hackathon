@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="c8917cf3-2a06-4d16-b9ab-c3dae5d8e13c" activeEnvironment="Default" name="garanti-sanalpos" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="5fda1f79-5e6c-4fe7-8b9c-2fa4616ecd32" port="8089" path="/" host="Esma-PC" name="garanti-sanalpos-mock"><con:settings/><con:properties/><con:restMockAction name="/VPServlet" method="POST" resourcePath="/VPServlet" id="68ae8259-0470-495b-ab3f-78c5eec52c05"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath><![CDATA[def requestBody = mockRequest.getRequestContent()
+
+def encodedBody=java.net.URLDecoder.decode(requestBody)
+def xml=encodedBody.substring(5)
+def holder = new com.eviware.soapui.support.XmlHolder( xml )
+def type= holder["//Transaction/Type"] 
+log.info "xml: " + xml
+
+if(type=='sales'){
+	def installmentCount=holder["//Transaction/InstallmentCnt"]	
+	def rewardAmount =holder["//Transaction/RewardList/Reward/UsedAmount"]
+	def installmentStatu=false
+	def rewardStatu=false
+	if(installmentCount!=null&&installmentCount.trim().length()!=0&&installmentCount.toInteger()>1){
+		installmentStatu=true
+		log.info "taksitli satis. taksit sayisi:"||installmentCount		
+	}else{
+		log.info "pesin satis"		
+	}
+
+	if(rewardAmount!=null&&rewardAmount.trim().length()!=0&&rewardAmount.toInteger()>=1){
+		rewardStatu=true
+		log.info "bonus kullanarak satis"		
+	}
+	requestContext.Mode= holder["//Mode"] 
+	requestContext.ProvUserID= holder["//Terminal/ProvUserID"] 
+	requestContext.UserID=holder["//Terminal/UserID"]
+	requestContext.ID=holder["//Terminal/ID"]
+	requestContext.MerchantID=holder["//Terminal/MerchantID"]
+	requestContext.IPAddress=holder["//Customer/IPAddress"]
+	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
+	requestContext.OrderID=holder["//Order/OrderID"]
+	requestContext.GroupID=holder["//Order/GroupID"]
+	if(installmentStatu){
+		context.httpResponse = "sales_installment_success"
+	}else if (rewardStatu) {
+		context.httpResponse="sales_with_bonus_success"
+	}else{	
+		context.httpResponse = "sales_success"	
+	}
+	
+}else if (type=='preauth'){	
+	log.info "on otorizasyon"
+	requestContext.Mode= holder["//Mode"] 
+	requestContext.ProvUserID= holder["//Terminal/ProvUserID"] 
+	requestContext.UserID=holder["//Terminal/UserID"]
+	requestContext.ID=holder["//Terminal/ID"]
+	requestContext.MerchantID=holder["//Terminal/MerchantID"]
+	requestContext.IPAddress=holder["//Customer/IPAddress"]
+	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
+	requestContext.OrderID=holder["//Order/OrderID"]
+	requestContext.GroupID=holder["//Order/GroupID"]
+	context.httpResponse = "preauth_success"	
+}else if (type=='postauth'){
+	log.info "on otorizasyon kapama"
+	requestContext.Mode= holder["//Mode"] 
+	requestContext.ProvUserID= holder["//Terminal/ProvUserID"] 
+	requestContext.UserID=holder["//Terminal/UserID"]
+	requestContext.ID=holder["//Terminal/ID"]
+	requestContext.MerchantID=holder["//Terminal/MerchantID"]
+	requestContext.OrderID=holder["//Order/OrderID"]
+	context.httpResponse = "preauth_success"	
+}else if(type=='void'){
+	log.info "iptal"
+	requestContext.Mode= holder["//Mode"] 
+	requestContext.ProvUserID= holder["//Terminal/ProvUserID"] 
+	requestContext.UserID=holder["//Terminal/UserID"]
+	requestContext.ID=holder["//Terminal/ID"]
+	requestContext.MerchantID=holder["//Terminal/MerchantID"]
+	requestContext.IPAddress=holder["//Customer/IPAddress"]
+	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
+	requestContext.OrderID=holder["//Order/OrderID"]
+	requestContext.GroupID=holder["//Order/GroupID"]
+	context.httpResponse = "void_success"	
+}else if(type=='refund'){
+	log.info "iade"
+	requestContext.Mode= holder["//Mode"] 
+	requestContext.ProvUserID= holder["//Terminal/ProvUserID"] 
+	requestContext.UserID=holder["//Terminal/UserID"]
+	requestContext.ID=holder["//Terminal/ID"]
+	requestContext.MerchantID=holder["//Terminal/MerchantID"]
+	requestContext.IPAddress=holder["//Customer/IPAddress"]
+	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
+	requestContext.OrderID=holder["//Order/OrderID"]
+	requestContext.GroupID=holder["//Order/GroupID"]
+	context.httpResponse = "refund_success"	
+}else if (type=='rewardinq'){
+	log.info "bonus sorgulama"
+	requestContext.Mode= holder["//Mode"] 
+	requestContext.ProvUserID= holder["//Terminal/ProvUserID"] 
+	requestContext.UserID=holder["//Terminal/UserID"]
+	requestContext.ID=holder["//Terminal/ID"]
+	requestContext.MerchantID=holder["//Terminal/MerchantID"]
+	requestContext.IPAddress=holder["//Customer/IPAddress"]
+	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
+	requestContext.OrderID=holder["//Order/OrderID"]
+	requestContext.GroupID=holder["//Order/GroupID"]
+	context.httpResponse = "reward_query_success"	
+}
+else{
+	log.info "Transaction Type not available"
+	context.httpResponse = "error"	
+}
+
+]]></con:dispatchPath><con:response name="sales_success" id="c6d3da0b-2dd9-456b-be84-cbc59227bd7d" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg></ErrorMsg>
+			<SysErrMsg></SysErrMsg>
+		</Response>
+		<RetrefNum>311710676028</RetrefNum>
+		<AuthCode>245093</AuthCode>
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000051</SequenceNum>
+		<ProvDate>20130427 10:24:26</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName>PE*** PEL** TON***</CardHolderName>
+		<CardType>BONUS</CardType>
+		<HashData>8B4BCA794C748337183EA62D75F901549541C95C</HashData>
+		<HostMsgList></HostMsgList>
+		<RewardInqResult>
+			<RewardList></RewardList>
+			<ChequeList></ChequeList>
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>]]></con:responseContent></con:response><con:response name="preauth_success" id="f2e232a8-43a4-44f2-bdcb-35623d7f34dd" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg></ErrorMsg>
+			<SysErrMsg></SysErrMsg>
+		</Response>
+		<RetrefNum>311710676052</RetrefNum>
+		<AuthCode>412290</AuthCode>
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000057</SequenceNum>
+		<ProvDate>20130427 10:40:07</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName>PE*** PEL** TON***</CardHolderName>
+		<CardType>BONUS</CardType>
+		<HashData>70FB1A7B9C874498FF2A5874EA6DEF7A17C2E7A5</HashData>
+		<HostMsgList></HostMsgList>
+		<RewardInqResult>
+			<RewardList></RewardList>
+			<ChequeList></ChequeList>
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>]]></con:responseContent></con:response><con:response name="postauth_success" id="cc4f8dfc-4792-4604-a51d-1133f212ede4" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID></GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg></ErrorMsg>
+			<SysErrMsg></SysErrMsg>
+		</Response>
+		<RetrefNum>105809652539</RetrefNum>
+		<AuthCode>914729</AuthCode>
+		<BatchNum>000574</BatchNum>
+		<SequenceNum>000509</SequenceNum>
+		<ProvDate>20110227 09:26:12</ProvDate>
+		<CardNumberMasked></CardNumberMasked>
+		<CardHolderName>HA*** YIL***</CardHolderName>
+		<HashData>6F39EA85C6A5BBA9040F40FA7C8F199C70D7343A</HashData>
+		<HostMsgList>
+		</HostMsgList>
+		<RewardInqResult>
+			<RewardList></RewardList>
+			<ChequeList></ChequeList>
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>]]></con:responseContent></con:response><con:response name="void_success" id="6769aa0a-bb2d-4bf5-8b81-6370807377eb" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg />
+			<SysErrMsg />
+		</Response>
+		<RetrefNum>311616674771</RetrefNum>
+		<AuthCode>489787</AuthCode>
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000029</SequenceNum>
+		<ProvDate>20130426 16:55:31</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName />
+		<CardType>BONUS</CardType>
+		<HashData>D73C3E2106BCAD517CB1F7C20ECF3B8279C14868</HashData>
+		<HostMsgList />
+		<RewardInqResult>
+			<RewardList />
+			<ChequeList />
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>]]></con:responseContent></con:response><con:response name="refund_success" id="7b940ab5-c329-4c1f-9b4d-970b156bcfec" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg />
+			<SysErrMsg />
+		</Response>
+		<RetrefNum>311616674771</RetrefNum>
+		<AuthCode>489787</AuthCode>
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000029</SequenceNum>
+		<ProvDate>20130426 16:55:31</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName />
+		<CardType>BONUS</CardType>
+		<HashData>D73C3E2106BCAD517CB1F7C20ECF3B8279C14868</HashData>
+		<HostMsgList />
+		<RewardInqResult>
+			<RewardList />
+			<ChequeList />
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>]]></con:responseContent></con:response><con:response name="sales_installment_success" id="960b3bff-45e4-4c96-a9fc-5752034723fb" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg></ErrorMsg>
+			<SysErrMsg></SysErrMsg>
+		</Response>
+		<RetrefNum>311710676038</RetrefNum>
+		<AuthCode>490535</AuthCode>
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000055</SequenceNum>
+		<ProvDate>20130427 10:29:39</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName>PE*** PEL** TON***</CardHolderName>
+		<CardType>BONUS</CardType>
+		<HashData>A0775603CAD3F951E8FF746CDC0401728B9BF2ED</HashData>
+		<HostMsgList>
+			<HostMsg>OFFF COK TAKSIT ALDIM</HostMsg>
+		</HostMsgList>
+		<RewardInqResult>
+			<RewardList>
+				<Reward>
+					<Type>FBB</Type>
+					<TotalAmount>0</TotalAmount>
+					<LastTxnGainAmount>10</LastTxnGainAmount>
+				</Reward>
+			</RewardList>
+			<ChequeList></ChequeList>
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>
+]]></con:responseContent></con:response><con:response name="reward_query_success" id="b8844e7b-63be-4fd4-8d19-96000375f1b7" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg />
+			<SysErrMsg />
+		</Response>
+		<RetrefNum>311615674611</RetrefNum>
+		<AuthCode />
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000014</SequenceNum>
+		<ProvDate>20130426 15:34:34</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName />
+		<CardType>BONUS</CardType>
+		<HashData>B33E3CEFC099ADA1F18234E39E2B5A12C45A4702</HashData>
+		<HostMsgList />
+		<RewardInqResult>
+			<RewardList>
+				<Reward>
+					<Type>FBB</Type>
+					<TotalAmount>148988</TotalAmount>
+					<LastTxnGainAmount>0</LastTxnGainAmount>
+				</Reward>
+				<Reward>
+					<Type>BNS</Type>
+					<TotalAmount>4494</TotalAmount>
+					<LastTxnGainAmount>0</LastTxnGainAmount>
+				</Reward>
+			</RewardList>
+			<ChequeList>
+				<Cheque>
+					<Type>P</Type>
+					<Amount>500</Amount>
+					<Count>280</Count>
+					<ExpireDate>20200101</ExpireDate>
+					<UsageRate>0000</UsageRate>
+					<MinTxnAmount>1</MinTxnAmount>
+					<ID>0000006533</ID>
+					<Bitmap>3C00</Bitmap>
+					<Description />
+				</Cheque>
+			</ChequeList>
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>]]></con:responseContent></con:response><con:response name="sales_with_bonus_success" id="c3fb2622-46f7-4ff1-96d4-11520761d73d" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>00</Code>
+			<ReasonCode>00</ReasonCode>
+			<Message>Approved</Message>
+			<ErrorMsg />
+			<SysErrMsg />
+		</Response>
+		<RetrefNum>311610674024</RetrefNum>
+		<AuthCode>200399</AuthCode>
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000006</SequenceNum>
+		<ProvDate>20130426 10:46:41</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName>PE*** PEL** TON***</CardHolderName>
+		<CardType>BONUS</CardType>
+		<HashData>5084AFB627494870152765F019DDA8DF652D177D</HashData>
+		<HostMsgList />
+		<RewardInqResult>
+			<RewardList />
+			<ChequeList />
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>
+]]></con:responseContent></con:response><con:response name="error" id="f776d4ac-1955-45a7-acc5-81ffa6bf77dd" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;GVPSResponse>
+	Invalid Transaction Type
+&lt;/GVPSResponse>
+</con:responseContent></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
