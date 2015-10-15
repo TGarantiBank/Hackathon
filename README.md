@@ -20,7 +20,17 @@ ziyaret edebilirsiniz.
 
  
 
-[Wiki](<https://github.com/TGarantiBank/Hackhaton/wiki>) sayfasından teknik
-bilgilere ulaşabilirsiniz.
+Garanti Bankası Ürünlerini Nasıl Kullanacağım?
+----------------------------------------------
+
+Fikrinizi geliştireceğiniz projede Garanti Bankası servislerini kullanmanız
+gerekecektir. Bu amaçla size bankamızın servislerini simüle ettiğimiz bir servis
+alt yapısı sağlamaktayız. Kullanım kolaylığı sağlayabilmek için, sistemi kendi
+bilgisayarınızdan çalıştırabileceğiniz şekilde ayarladık. Servislerin lokal
+ortamda nasıl çalıştırılacağı konusunda aşağıdaki video anlatımından
+faydalanabilirsiniz. Daha detay bilgi ise
+[Wiki](<https://github.com/TGarantiBank/Hackhaton/wiki>) sayfamızda mevcuttur.
+
+ 
 
  
