@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="c8917cf3-2a06-4d16-b9ab-c3dae5d8e13c" activeEnvironment="Default" name="garanti-sanalpos" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="5fda1f79-5e6c-4fe7-8b9c-2fa4616ecd32" port="9999" path="/" host="Esma-PC" name="garanti-sanalpos-mock" docroot=""><con:settings/><con:properties><con:property><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:property></con:properties><con:restMockAction name="/VPServlet" method="POST" resourcePath="/VPServlet" id="68ae8259-0470-495b-ab3f-78c5eec52c05"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath><![CDATA[def requestBody = mockRequest.getRequestContent()
+<con:soapui-project id="c8917cf3-2a06-4d16-b9ab-c3dae5d8e13c" activeEnvironment="Default" name="garanti-sanalpos" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="5fda1f79-5e6c-4fe7-8b9c-2fa4616ecd32" port="9999" path="/" host="Esma-PC" name="garanti-sanalpos-mock" docroot=""><con:settings/><con:properties/><con:restMockAction name="/VPServlet" method="POST" resourcePath="/VPServlet" id="68ae8259-0470-495b-ab3f-78c5eec52c05"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath><![CDATA[def requestBody = mockRequest.getRequestContent()
 
 def encodedBody=java.net.URLDecoder.decode(requestBody)
 def xml=encodedBody.substring(5)
@@ -148,7 +148,7 @@ else{
 			<ChequeList></ChequeList>
 		</RewardInqResult>
 	</Transaction>
-</GVPSResponse>]]></con:responseContent></con:response><con:response name="preauth_success" id="f2e232a8-43a4-44f2-bdcb-35623d7f34dd" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+</GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="preauth_success" id="f2e232a8-43a4-44f2-bdcb-35623d7f34dd" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
@@ -188,7 +188,7 @@ else{
 			<ChequeList></ChequeList>
 		</RewardInqResult>
 	</Transaction>
-</GVPSResponse>]]></con:responseContent></con:response><con:response name="postauth_success" id="cc4f8dfc-4792-4604-a51d-1133f212ede4" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+</GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="postauth_success" id="cc4f8dfc-4792-4604-a51d-1133f212ede4" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>
 	<Order>
 		<OrderID>${OrderID}</OrderID>
@@ -218,7 +218,7 @@ else{
 			<ChequeList></ChequeList>
 		</RewardInqResult>
 	</Transaction>
-</GVPSResponse>]]></con:responseContent></con:response><con:response name="void_success" id="6769aa0a-bb2d-4bf5-8b81-6370807377eb" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+</GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="void_success" id="6769aa0a-bb2d-4bf5-8b81-6370807377eb" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
@@ -258,7 +258,7 @@ else{
 			<ChequeList />
 		</RewardInqResult>
 	</Transaction>
-</GVPSResponse>]]></con:responseContent></con:response><con:response name="refund_success" id="7b940ab5-c329-4c1f-9b4d-970b156bcfec" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+</GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="refund_success" id="7b940ab5-c329-4c1f-9b4d-970b156bcfec" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
@@ -298,7 +298,7 @@ else{
 			<ChequeList />
 		</RewardInqResult>
 	</Transaction>
-</GVPSResponse>]]></con:responseContent></con:response><con:response name="sales_installment_success" id="960b3bff-45e4-4c96-a9fc-5752034723fb" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+</GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="sales_installment_success" id="960b3bff-45e4-4c96-a9fc-5752034723fb" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
@@ -347,7 +347,7 @@ else{
 		</RewardInqResult>
 	</Transaction>
 </GVPSResponse>
-]]></con:responseContent></con:response><con:response name="reward_query_success" id="b8844e7b-63be-4fd4-8d19-96000375f1b7" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="reward_query_success" id="b8844e7b-63be-4fd4-8d19-96000375f1b7" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
@@ -410,7 +410,7 @@ else{
 			</ChequeList>
 		</RewardInqResult>
 	</Transaction>
-</GVPSResponse>]]></con:responseContent></con:response><con:response name="sales_with_bonus_success" id="c3fb2622-46f7-4ff1-96d4-11520761d73d" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+</GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="sales_with_bonus_success" id="c3fb2622-46f7-4ff1-96d4-11520761d73d" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
@@ -451,7 +451,7 @@ else{
 		</RewardInqResult>
 	</Transaction>
 </GVPSResponse>
-]]></con:responseContent></con:response><con:response name="error" id="f776d4ac-1955-45a7-acc5-81ffa6bf77dd" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;GVPSResponse>
+]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="error" id="f776d4ac-1955-45a7-acc5-81ffa6bf77dd" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;GVPSResponse>
 	Invalid Transaction Type
 &lt;/GVPSResponse>
-</con:responseContent></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
+</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
