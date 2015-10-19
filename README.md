@@ -15,10 +15,8 @@ fikirlerinin bir ödeme sistemi veya bankacılık ürünü içermesi gereklidir
 Hackathon 20 Kasım Cuma 20:30 / 22 Kasım Pazar 18:00 arasında Garanti Bankası
 Doğuş İş Hanı'nda (Mecidiyeköy) gerçekleşecektir.
 
-Başvuru ve detay bilgi için <https://hackathon.garanti.com.tr/>  adresini
-ziyaret edebilirsiniz.
-
- 
+Başvuru ve detay bilgi için <https://hackathon.garanti.com.tr/> adresini ziyaret
+edebilirsiniz.
 
 Garanti Bankası Ürünlerini Nasıl Kullanacağım?
 ----------------------------------------------
@@ -29,7 +27,8 @@ alt yapısı sağlamaktayız. Kullanım kolaylığı sağlayabilmek için, siste
 bilgisayarınızdan çalıştırabileceğiniz şekilde ayarladık. Servislerin lokal
 ortamda nasıl çalıştırılacağı konusunda aşağıdaki video anlatımından
 faydalanabilirsiniz. Daha detay bilgi ise
-[Wiki](<https://github.com/TGarantiBank/Hackhaton/wiki>) sayfamızda mevcuttur.
+[Wiki](<https://github.com/TGarantiBank/Hackhaton/wiki/Hackhaton>) sayfamızda
+mevcuttur.
 
  
 
