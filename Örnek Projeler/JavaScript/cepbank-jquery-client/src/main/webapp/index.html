@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="us">
+<head>
+<meta charset="utf-8">
+<title>jQuery Example Page</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+// ekrandan degerler girilip butona basilinca cagrilan fonksiyondur
+
+function listUnits() {
+// ekrandan girilen degerlerin alinip ilgili degiskenlere atanmasi
+		var unitType = $("#unitType").val();
+		var latitude = $("#latitude").val();
+		var longitude = $("#longitude").val();
+		var distance = $("#distance").val();
+			
+// servise gonderilecek json datasinin yukarida alinan parametrelerle olusturulmasi	
+// olusacak json datasi ornegi asagida verilmistir
+
+// {
+//     "unitType": "C",
+//     "latitude": 36.599104891017426,
+//     "longitude": 30.561593821958457,
+//     "distance": 2
+// }
+
+		var data = {
+			"unitType" : unitType,
+			"latitude" : latitude,
+			"longitude" : longitude,
+			"distance" : distance
+		};
+
+// jquery ajax metodu kullanilarak servise POST istegi yapilmasi. Farkli servis
+// cagirmaniz gerektiginde URL ve data objeniz degisiyor olmalidir. Servise gonderilen datanin
+// json turunde oldugu belirtilmistir.
+// servisten cevap dondugunde renderUnitList fonksiyonu cagrilmaktadir. Donen dataya ornek sayfanin altinda verilmistir.
+		$.ajax({
+			url : 'http://localhost:8888/cepbankMobile/getunitinfo.json',
+			type : 'POST',
+			data : data,
+			success : renderUnitList,
+			dataType : 'json'
+		});
+	}
+
+// servisten cevap dondugunde cagrilan fonksiyondur. response ismindeki degisken 
+// servisten donen datadir. Donen dataya ornek sayfanin altinda verilmistir.
+	function renderUnitList(response) {
+// bu ornekte servisten donen veriler bir html tablosunda gosterilmektedir. 
+// Oncelikle bu amacla kullanilacak id si unitList olan html objesine erisiliyor
+		var unitTable = $('#unitList');
+// tablonun header alanlari dolduruluyor		
+		var tableHeader = '<tr>' + '<th>Code</th>' + '<th>Name</th>' + '</tr>';
+		unitTable.html(tableHeader);
+// response datasi iterate edilerek donen tüm unit objelerinin code ve isimleri ekrana yazdiriliyor.		
+		for (var i = 0; i < response.unitList.length; i++) {
+			var unit = response.unitList[i];
+
+			var unitData = '<tr>' + '<td>' + unit.code + '</td>' + '<td>'
+					+ unit.name + '</td>' + '</tr>';
+
+			unitTable.append(unitData);
+		}
+	}
+</script>
+
+</head>
+<body>
+<!--  bu sayfa ekrandan aldigi parametreleri gondererek -->
+<!--  getunitinfo cepbank servisini cagirmaktadir  -->
+<!--  butona basilinca listUnits() javascript fonksiyonu cagrilmaktadir -->
+<!--  servisten data geldiginde sayfada yer alan unitList id li tabloya donen verilen yazdirilmaktadir. -->
+<!--  bu ekranin calisabilmesi icin SoapUI uygulamasindaki sanal pos servislerinin start edilmis olmasi gerekmektedir. -->
+
+	Unit Type:
+	<input type="text" id="unitType" value="C">
+	<br> latitude:
+	<input type="text" id="latitude" value="36.599104891017426">
+	<br> longitude:
+	<input type="text" id="longitude" value="30.561593821958457">
+	<br> distance:
+	<input type="text" id="distance" value="2">
+	<br>
+	<input type="button" value="Get Unit Info" onclick="listUnits();">
+	<table class="table" id="unitList">
+	</table>
+</body>
+</html>
+
+<!-- SERVISTEN DONEN DATA ORNEGI -->
+<!-- { -->
+<!--     "unitList": [ -->
+<!--         { -->
+<!--             "code": "01317CRS001", -->
+<!--             "name": "KEMER BAGLI SUBE         ", -->
+<!--             "address": "ATATURK CADDESI NO:18/A 07980                     ", -->
+<!--             "city": "ANTALYA", -->
+<!--             "town": "KEMER", -->
+<!--             "model": "NCR BNAY       ", -->
+<!--             "hasEnv": "H", -->
+<!--             "hasCoin": "E", -->
+<!--             "hasCashPayment": "E", -->
+<!--             "hasUsd": "H", -->
+<!--             "hasEur": "H", -->
+<!--             "hasGbp": "H", -->
+<!--             "latitude": "36.599308", -->
+<!--             "longitude": "30.561323", -->
+<!--             "openTime": 0, -->
+<!--             "closeTime": 0, -->
+<!--             "hasUsdCashPayment": "E", -->
+<!--             "unitType": "atm", -->
+<!--             "distance": 0.03 -->
+<!--         }, -->
+<!--         { -->
+<!--             "code": 1317, -->
+<!--             "name": "KEMER BAGLI SUBE", -->
+<!--             "type": "T", -->
+<!--             "address1": "Ataturk Caddesi No: 18 / A 07980", -->
+<!--             "address2": "", -->
+<!--             "address3": "", -->
+<!--             "zipCode": 7980, -->
+<!--             "areaCode": 242, -->
+<!--             "telephone": "8143398", -->
+<!--             "fax": "8143506", -->
+<!--             "cityCode": "007", -->
+<!--             "townCode": "00014", -->
+<!--             "cityName": "ANTALYA        ", -->
+<!--             "townName": "KEMER", -->
+<!--             "latitude": "36.600335337588", -->
+<!--             "longitude": "30.560574531555", -->
+<!--             "openAfternoon": "H", -->
+<!--             "afternoonHours": "(12:30-13:30)", -->
+<!--             "unitType": "branch", -->
+<!--             "distance": 0.16 -->
+<!--         }, -->
+<!--         { -->
+<!--             "code": "00904CRS056", -->
+<!--             "name": "KEMER MARINA             ", -->
+<!--             "address": "KEMER YAT LIMANI LIMAN CADDESI                    ", -->
+<!--             "city": "ANTALYA", -->
+<!--             "town": "KEMER", -->
+<!--             "model": "NCR BNAY       ", -->
+<!--             "hasEnv": "H", -->
+<!--             "hasCoin": "E", -->
+<!--             "hasCashPayment": "E", -->
+<!--             "hasUsd": "E", -->
+<!--             "hasEur": "E", -->
+<!--             "hasGbp": "H", -->
+<!--             "latitude": "36.599775", -->
+<!--             "longitude": "30.563361", -->
+<!--             "openTime": 0, -->
+<!--             "closeTime": 0, -->
+<!--             "hasUsdCashPayment": "N", -->
+<!--             "unitType": "atm", -->
+<!--             "distance": 0.17 -->
+<!--         }, -->
+<!--         { -->
+<!--             "code": "00904CRS072", -->
+<!--             "name": "KEMER OTTIMO             ", -->
+<!--             "address": "OTTIMO AVM KEMER                                  ", -->
+<!--             "city": "ANTALYA", -->
+<!--             "town": "KEMER", -->
+<!--             "model": "NCR BNAY       ", -->
+<!--             "hasEnv": "H", -->
+<!--             "hasCoin": "E", -->
+<!--             "hasCashPayment": "E", -->
+<!--             "hasUsd": "E", -->
+<!--             "hasEur": "E", -->
+<!--             "hasGbp": "H", -->
+<!--             "latitude": "36.605408", -->
+<!--             "longitude": "30.558983", -->
+<!--             "openTime": 0, -->
+<!--             "closeTime": 0, -->
+<!--             "hasUsdCashPayment": "N", -->
+<!--             "unitType": "atm", -->
+<!--             "distance": 0.74 -->
+<!--         }, -->
+<!--         { -->
+<!--             "code": "00352CRS002", -->
+<!--             "name": "KEMER SUBE-1             ", -->
+<!--             "address": "YENI MAHALLE DORTYOL BULVARI NO:26 0798           ", -->
+<!--             "city": "ANTALYA", -->
+<!--             "town": "KEMER", -->
+<!--             "model": "NCR BNAY       ", -->
+<!--             "hasEnv": "H", -->
+<!--             "hasCoin": "E", -->
+<!--             "hasCashPayment": "E", -->
+<!--             "hasUsd": "E", -->
+<!--             "hasEur": "E", -->
+<!--             "hasGbp": "H", -->
+<!--             "latitude": "36.600782", -->
+<!--             "longitude": "30.552861", -->
+<!--             "openTime": 0, -->
+<!--             "closeTime": 0, -->
+<!--             "hasUsdCashPayment": "N", -->
+<!--             "unitType": "atm", -->
+<!--             "distance": 0.8 -->
+<!--         }, -->
+<!--         { -->
+<!--             "code": "00352CRS004", -->
+<!--             "name": "KEMER SUBE-2             ", -->
+<!--             "address": "YENI MAHALLE DORTYOL BUL.                         ", -->
+<!--             "city": "ANTALYA", -->
+<!--             "town": "KEMER", -->
+<!--             "model": "NCR BNAY       ", -->
+<!--             "hasEnv": "H", -->
+<!--             "hasCoin": "E", -->
+<!--             "hasCashPayment": "E", -->
+<!--             "hasUsd": "H", -->
+<!--             "hasEur": "H", -->
+<!--             "hasGbp": "H", -->
+<!--             "latitude": "36.600782", -->
+<!--             "longitude": "30.552861", -->
+<!--             "openTime": 0, -->
+<!--             "closeTime": 0, -->
+<!--             "hasUsdCashPayment": "N", -->
+<!--             "unitType": "atm", -->
+<!--             "distance": 0.8 -->
+<!--         }, -->
+<!--         { -->
+<!--             "code": 352, -->
+<!--             "name": "KEMER", -->
+<!--             "type": "T", -->
+<!--             "address1": "Yeni Mahalle Dortyol Bulvari No: 26 07980", -->
+<!--             "address2": "", -->
+<!--             "address3": "", -->
+<!--             "zipCode": 7980, -->
+<!--             "areaCode": 242, -->
+<!--             "telephone": "8135350", -->
+<!--             "fax": "8145564", -->
+<!--             "cityCode": "007", -->
+<!--             "townCode": "00014", -->
+<!--             "cityName": "ANTALYA        ", -->
+<!--             "townName": "KEMER", -->
+<!--             "latitude": "36.600301", -->
+<!--             "longitude": "30.551068", -->
+<!--             "openAfternoon": "E", -->
+<!--             "afternoonHours": "(12:30-13:30)", -->
+<!--             "unitType": "branch", -->
+<!--             "distance": 0.95 -->
+<!--         } -->
+<!--     ], -->
+<!--     "returnMessage": "OK", -->
+<!--     "returnCode": 0 -->
+<!-- } -->
