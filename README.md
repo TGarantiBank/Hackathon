@@ -1,4 +1,4 @@
-Garanti Hackhaton
+Garanti Hackathon
 =================
 
 Proje üretmekten zevk alan yazılımcı, tasarımcı ve girişimcilere sınırlı süre
