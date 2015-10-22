@@ -1,56 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="7ca8ac02-b3f5-4962-a9c8-db41466a160a" activeEnvironment="Default" name="garanti-cepbank" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="6bc4f65a-a675-4db5-9870-7271ad5ed1a9" port="8888" path="/cepbankMobile" host="Esma-PC" name="garanti-cepbank-mock" docroot=""><con:settings/><con:properties/><con:restMockAction name="getunitinfo.json" method="POST" resourcePath="/getunitinfo.json" id="281bd3f0-265c-4a60-9ca4-b9b00e700225"><con:settings/><con:defaultResponse>getunitinforesponse</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
-// Script dispatcher is used to select a response based on the incoming request.
-// Here are few examples showing how to match based on path, query param, header and body
+<con:soapui-project id="7ca8ac02-b3f5-4962-a9c8-db41466a160a" activeEnvironment="Default" name="garanti-cepbank" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="6bc4f65a-a675-4db5-9870-7271ad5ed1a9" port="8888" path="/cepbankMobile" host="Esma-PC" name="garanti-cepbank-mock" docroot=""><con:settings/><con:properties/><con:onRequestScript/><con:restMockAction name="getunitinfo.json" method="POST" resourcePath="/getunitinfo.json" id="281bd3f0-265c-4a60-9ca4-b9b00e700225"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
-// Match based on path
-def requestPath = mockRequest.getPath()
-log.info "Path: "+ requestPath
-
-if( requestPath.contains("json") )
-{
-    // return the name of the response you want to dispatch
-    return "JSON Response"
+def slurper = new JsonSlurper()
+try{
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def deviceId = parsedReq.deviceId
+}catch(Exception e){
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
 }
+return "response"
 
 
-// Match based on query parameter
-def queryString = mockRequest.getRequest().getQueryString()
-log.info "QueryString: " + queryString
-
-if( queryString.contains("stockholm") )
-{
-    // return the name of the response you want to dispatch
-    return "Response Stockholm"
-}
-else if( queryString.contains("london") )
-{
-    // return the name of the response you want to dispatch
-    return "Response London"
-}
-
-
-// Match based on header
-def acceptEncodingHeaderList = mockRequest.getRequestHeaders().get("Accept-Encoding")
-log.info "AcceptEncoding Header List: " + acceptEncodingHeaderList
-
-if( acceptEncodingHeaderList.contains("gzip,deflate") )
-{
-    // return the name of the response you want to dispatch
-    return "GZiped Response"
-}
-
-
-// Match based on body
-def requestBody = mockRequest.getRequestContent()
-log.info "Request body: " + requestBody
-
-if( requestBody.contains("some data") )
-{
-    // return the name of the response you want to dispatch
-    return "Response N"
-}
-*/
 </con:dispatchPath><con:response name="response" id="1d62e5f5-21c5-4819-90ca-f8e892db19c4" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "unitList": [
         {
@@ -205,15 +169,24 @@ if( requestBody.contains("some data") )
     ],
     "returnMessage": "OK",
     "returnCode": 0
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response></con:restMockAction><con:restMockAction name="inquiryBalance.json" method="POST" resourcePath="/inquiryBalance.json" id="74b55417-6097-4a67-b626-10f01fb34278"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response><con:response name="error" id="8d7535b7-e04d-4063-9ab1-849eedcb7db3" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="inquiryBalance.json" method="POST" resourcePath="/inquiryBalance.json" id="74b55417-6097-4a67-b626-10f01fb34278"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
 def slurper = new JsonSlurper()
-
 def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-</con:dispatchPath><con:response name="response" id="8dbc14a9-9f9d-47cd-ae6b-31f91f642568" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+try{
+	
+	def parsedReq = slurper.parseText(context.expand(req))
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
+
+return "response"</con:dispatchPath><con:response name="response" id="8dbc14a9-9f9d-47cd-ae6b-31f91f642568" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "phoneNumber": "5555555555",
     "balance": 6.71,
     "availableBalance": 656.71,
@@ -221,169 +194,60 @@ requestContext.deviceId=deviceId
     "returnMessage": "CepBank hesap ELMA bakiyesi 6,71 TL ,Avans Hesap limiti 650,00 TL ,toplam kullanilabilir bakiyesi 656,71 TL 'dir.",
     "statusCode": 0,
     "channel": null
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response></con:restMockAction><con:restMockAction name="creditCardLead.json" method="POST" resourcePath="/creditCardLead" id="c46f857d-3eae-446a-827f-d499f18a58d7"><con:settings/><con:defaultResponse xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
-// Script dispatcher is used to select a response based on the incoming request.
-// Here are few examples showing how to match based on path, query param, header and body
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response><con:response name="error" id="6ee6da3d-b03b-4076-ba27-ea2cd4cac9d2" httpResponseStatus="200"><con:settings/><con:responseContent>
+{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="creditCardLead.json" method="POST" resourcePath="/creditCardLead" id="c46f857d-3eae-446a-827f-d499f18a58d7"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
-// Match based on path
-def requestPath = mockRequest.getPath()
-log.info "Path: "+ requestPath
-
-if( requestPath.contains("json") )
-{
-    // return the name of the response you want to dispatch
-    return "JSON Response"
+def slurper = new JsonSlurper()
+def req =mockRequest.requestContent
+try{
+	
+	def parsedReq = slurper.parseText(context.expand(req))
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
 }
 
-
-// Match based on query parameter
-def queryString = mockRequest.getRequest().getQueryString()
-log.info "QueryString: " + queryString
-
-if( queryString.contains("stockholm") )
-{
-    // return the name of the response you want to dispatch
-    return "Response Stockholm"
-}
-else if( queryString.contains("london") )
-{
-    // return the name of the response you want to dispatch
-    return "Response London"
-}
-
-
-// Match based on header
-def acceptEncodingHeaderList = mockRequest.getRequestHeaders().get("Accept-Encoding")
-log.info "AcceptEncoding Header List: " + acceptEncodingHeaderList
-
-if( acceptEncodingHeaderList.contains("gzip,deflate") )
-{
-    // return the name of the response you want to dispatch
-    return "GZiped Response"
-}
-
-
-// Match based on body
-def requestBody = mockRequest.getRequestContent()
-log.info "Request body: " + requestBody
-
-if( requestBody.contains("some data") )
-{
-    // return the name of the response you want to dispatch
-    return "Response N"
-}
-*/
-</con:dispatchPath><con:response name="response" id="70125bda-a0b0-4edb-a123-8a090cb9f201" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="70125bda-a0b0-4edb-a123-8a090cb9f201" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "returnCode": "0000",
-    "explanationText": "Başvurunuz alinmistir."
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response></con:restMockAction><con:restMockAction name="creditLead.json" method="POST" resourcePath="/creditLead" id="0d8ba72d-aae3-423a-b707-b201c1687e4e"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
-// Script dispatcher is used to select a response based on the incoming request.
-// Here are few examples showing how to match based on path, query param, header and body
+    "explanationText": "Basvurunuz alinmistir."
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response><con:response name="error" id="544c3b02-1505-4a50-ac23-3d74ba7cd86d" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="creditLead.json" method="POST" resourcePath="/creditLead" id="0d8ba72d-aae3-423a-b707-b201c1687e4e"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
-// Match based on path
-def requestPath = mockRequest.getPath()
-log.info "Path: "+ requestPath
-
-if( requestPath.contains("json") )
-{
-    // return the name of the response you want to dispatch
-    return "JSON Response"
+def slurper = new JsonSlurper()
+def req =mockRequest.requestContent
+try{
+	def parsedReq = slurper.parseText(context.expand(req))
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
 }
 
-
-// Match based on query parameter
-def queryString = mockRequest.getRequest().getQueryString()
-log.info "QueryString: " + queryString
-
-if( queryString.contains("stockholm") )
-{
-    // return the name of the response you want to dispatch
-    return "Response Stockholm"
-}
-else if( queryString.contains("london") )
-{
-    // return the name of the response you want to dispatch
-    return "Response London"
-}
-
-
-// Match based on header
-def acceptEncodingHeaderList = mockRequest.getRequestHeaders().get("Accept-Encoding")
-log.info "AcceptEncoding Header List: " + acceptEncodingHeaderList
-
-if( acceptEncodingHeaderList.contains("gzip,deflate") )
-{
-    // return the name of the response you want to dispatch
-    return "GZiped Response"
-}
-
-
-// Match based on body
-def requestBody = mockRequest.getRequestContent()
-log.info "Request body: " + requestBody
-
-if( requestBody.contains("some data") )
-{
-    // return the name of the response you want to dispatch
-    return "Response N"
-}
-*/
-</con:dispatchPath><con:response name="response" id="486937cc-d02b-4039-ac7e-acac81c34462" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="486937cc-d02b-4039-ac7e-acac81c34462" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
 	"returnCode": "0000",
     "explanationText": "Bilgileriniz Gonderilmistir."
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response></con:restMockAction><con:restMockAction name="getcurrency.json" method="POST" resourcePath="/getcurrency.json" id="ce9b1b55-da40-4193-b45e-89b36b33e567"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
-// Script dispatcher is used to select a response based on the incoming request.
-// Here are few examples showing how to match based on path, query param, header and body
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response><con:response name="error" id="a1bce3ae-910f-4337-97b9-9a0ff7acdf31" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="getcurrency.json" method="POST" resourcePath="/getcurrency.json" id="ce9b1b55-da40-4193-b45e-89b36b33e567"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
-// Match based on path
-def requestPath = mockRequest.getPath()
-log.info "Path: "+ requestPath
-
-if( requestPath.contains("json") )
-{
-    // return the name of the response you want to dispatch
-    return "JSON Response"
+def slurper = new JsonSlurper()
+def req =mockRequest.requestContent
+if(req){
+	
+	log.error  "Bu servis input parametresi almamaktadir"
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
 }
 
-
-// Match based on query parameter
-def queryString = mockRequest.getRequest().getQueryString()
-log.info "QueryString: " + queryString
-
-if( queryString.contains("stockholm") )
-{
-    // return the name of the response you want to dispatch
-    return "Response Stockholm"
-}
-else if( queryString.contains("london") )
-{
-    // return the name of the response you want to dispatch
-    return "Response London"
-}
-
-
-// Match based on header
-def acceptEncodingHeaderList = mockRequest.getRequestHeaders().get("Accept-Encoding")
-log.info "AcceptEncoding Header List: " + acceptEncodingHeaderList
-
-if( acceptEncodingHeaderList.contains("gzip,deflate") )
-{
-    // return the name of the response you want to dispatch
-    return "GZiped Response"
-}
-
-
-// Match based on body
-def requestBody = mockRequest.getRequestContent()
-log.info "Request body: " + requestBody
-
-if( requestBody.contains("some data") )
-{
-    // return the name of the response you want to dispatch
-    return "Response N"
-}
-*/
-</con:dispatchPath><con:response name="response" id="0a358b7b-309f-445e-a0a6-bc80b5e2b146" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="0a358b7b-309f-445e-a0a6-bc80b5e2b146" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "date": "09092015",
     "time": "0000",
     "operation": "C",
@@ -499,17 +363,24 @@ if( requestBody.contains("some data") )
             "satisFiyatiA": "0.36146"
         }
     ]
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="getActivities.json" method="POST" resourcePath="/getActivities.json" id="657e08c0-2f64-4e27-9d17-f773e8e97274"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="19e0fcda-ba00-465f-b471-e05027b65cbb" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="getActivities.json" method="POST" resourcePath="/getActivities.json" id="657e08c0-2f64-4e27-9d17-f773e8e97274"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
 def slurper = new JsonSlurper()
-
 def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
+try{
+	
+	def parsedReq = slurper.parseText(context.expand(req))
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-
-</con:dispatchPath><con:response name="response" id="3bca41b3-c42b-4452-8304-90cb507eb06c" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="3bca41b3-c42b-4452-8304-90cb507eb06c" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "activityList": [
         {
             "accNo": null,
@@ -656,18 +527,28 @@ requestContext.deviceId=deviceId
     "returnMessage": "",
     "statusCode": 0,
     "channel": null
-} </con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="cardPayment.json" method="POST" resourcePath="/cardPayment.json" id="ffe780ab-a5ed-4e23-9581-ffdbe2ad987d"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+} </con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="c6b44f44-5b2a-499e-9adf-71accd003107" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="cardPayment.json" method="POST" resourcePath="/cardPayment.json" id="ffe780ab-a5ed-4e23-9581-ffdbe2ad987d"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>
+import groovy.json.*
 
 def slurper = new JsonSlurper()
-
 def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def cardNum = parsedReq.cardNum
-def tranAmount = parsedReq.tranAmount
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.cardNum=cardNum
-requestContext.tranAmount=tranAmount</con:dispatchPath><con:response name="response" id="1e08d8a4-77b6-49b4-9b19-6e5a8969b640" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+try{	
+	def parsedReq = slurper.parseText(context.expand(req))
+	def cardNum = parsedReq.cardNum
+	def tranAmount = parsedReq.tranAmount
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.cardNum=cardNum
+	requestContext.tranAmount=tranAmount	
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
+
+return "response"</con:dispatchPath><con:response name="response" id="1e08d8a4-77b6-49b4-9b19-6e5a8969b640" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "phoneNumber": "1115555555",
     "cardNum": "${cardNum}",
     "tranAmount":"${tranAmount}",
@@ -675,20 +556,27 @@ requestContext.tranAmount=tranAmount</con:dispatchPath><con:response name="respo
     "returnMessage": "",
     "statusCode": 0,
     "channel": null
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="cancelSentMoney.json" method="POST" resourcePath="/cancelSentMoney.json" id="90a04206-20af-439b-9969-a678c5c42824"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="5e00ffe2-58aa-4b4e-8c00-a0db7ee7ec02" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="cancelSentMoney.json" method="POST" resourcePath="/cancelSentMoney.json" id="90a04206-20af-439b-9969-a678c5c42824"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+try{
+	def slurper = new JsonSlurper()
+	
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def referenceNum = parsedReq.referenceNum
+	def cancelPhoneNum = parsedReq.cancelPhoneNum
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.referenceNum=referenceNum
+	requestContext.cancelPhoneNum=cancelPhoneNum
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-def slurper = new JsonSlurper()
-
-def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def referenceNum = parsedReq.referenceNum
-def cancelPhoneNum = parsedReq.cancelPhoneNum
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.referenceNum=referenceNum
-requestContext.cancelPhoneNum=cancelPhoneNum
-
-</con:dispatchPath><con:response name="response" id="a605f07f-c403-414f-8106-de4937a178a9" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="a605f07f-c403-414f-8106-de4937a178a9" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "cancelPhoneNumber": "${cancelPhoneNum}",
     "referenceNum": "${referenceNum}",
     "phoneNumber": "1115555555",
@@ -698,19 +586,28 @@ requestContext.cancelPhoneNum=cancelPhoneNum
     "channel": null
 }
 
-</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="sendMoneyToPhone.json" method="POST" resourcePath="/sendMoneyToPhone.json" id="7949754e-e7b8-4537-a553-79dec7dcca36"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="d1d88d20-8d3c-42fa-81e6-ec6184f5081c" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="sendMoneyToPhone.json" method="POST" resourcePath="/sendMoneyToPhone.json" id="7949754e-e7b8-4537-a553-79dec7dcca36"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+try{
+	def slurper = new JsonSlurper()
+	
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def targetPhoneNum = parsedReq.targetPhoneNum
+	def tranAmount = parsedReq.tranAmount
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.targetPhoneNum=targetPhoneNum
+	requestContext.tranAmount=tranAmount
+	requestContext.returnMessage="Sayin musterimiz, "+targetPhoneNum+" nolu cep telefonuna hesabinizdan "+tranAmount+"  TL gonderilmistir. Islem referansiniz:1111111"
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-def slurper = new JsonSlurper()
-
-def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def targetPhoneNum = parsedReq.targetPhoneNum
-def tranAmount = parsedReq.tranAmount
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.targetPhoneNum=targetPhoneNum
-requestContext.tranAmount=tranAmount
-requestContext.returnMessage="Sayin musterimiz, "+targetPhoneNum+" nolu cep telefonuna hesabinizdan "+tranAmount+"  TL gonderilmistir. Islem referansiniz:1111111"</con:dispatchPath><con:response name="response" id="e003be18-71de-4998-94cc-901da368aed6" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="e003be18-71de-4998-94cc-901da368aed6" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "phoneNumber": "1115555555",
     "targetPhoneNum": "${targetPhoneNum}",
     "tranAmount": ${tranAmount},
@@ -719,20 +616,29 @@ requestContext.returnMessage="Sayin musterimiz, "+targetPhoneNum+" nolu cep tele
     "statusCode": 0,
     "channel": null
 }
-</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="cancelRequestedMoney.json" method="POST" resourcePath="/cancelRequestedMoney.json" id="a2b00d87-9f3d-497a-b5c3-2f2139c88e85"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="819001a8-d9c8-4d3c-8a7a-8f1f8253e886" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="cancelRequestedMoney.json" method="POST" resourcePath="/cancelRequestedMoney.json" id="a2b00d87-9f3d-497a-b5c3-2f2139c88e85"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
-def slurper = new JsonSlurper()
+try{
+	def slurper = new JsonSlurper()
+	
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def referenceNum = parsedReq.referenceNum
+	def cancelPhoneNum = parsedReq.cancelPhoneNum
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.referenceNum=referenceNum
+	requestContext.cancelPhoneNum=cancelPhoneNum
+	requestContext.returnMessage="&lt;b>"+cancelPhoneNum+"&lt;/b>  telefon numarasindan gelen para isteme talebi iptal edilmistir."
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def referenceNum = parsedReq.referenceNum
-def cancelPhoneNum = parsedReq.cancelPhoneNum
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.referenceNum=referenceNum
-requestContext.cancelPhoneNum=cancelPhoneNum
-requestContext.returnMessage="&lt;b>"+cancelPhoneNum+"&lt;/b>  telefon numarasindan gelen para isteme talebi iptal edilmistir."
-
+return "response"
 </con:dispatchPath><con:response name="response" id="e24b2d71-f557-4a2f-83a1-89c0a7af90f2" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "cancelPhoneNumber": "${cancelPhoneNum}",
     "referenceNum": "${referenceNum}",
@@ -742,38 +648,57 @@ requestContext.returnMessage="&lt;b>"+cancelPhoneNum+"&lt;/b>  telefon numarasin
     "statusCode": 0,
     "channel": null
 }
-</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="confirmRequestedMoney.json" method="POST" resourcePath="/confirmRequestedMoney.json" id="87052898-1b46-4212-9250-81c96635f842"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="98d61c5e-1306-403c-872f-4475708f06ab" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>
+{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="confirmRequestedMoney.json" method="POST" resourcePath="/confirmRequestedMoney.json" id="87052898-1b46-4212-9250-81c96635f842"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
 def slurper = new JsonSlurper()
+try{
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def referenceNum = parsedReq.referenceNum
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.referenceNum=referenceNum
+	log.info "num:"+referenceNum
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def referenceNum = parsedReq.referenceNum
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.referenceNum=referenceNum
-log.info "num:"+referenceNum
-</con:dispatchPath><con:response name="response" id="8201f913-56e2-4219-a78e-af7f89a98731" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent><![CDATA[{
+return "response"</con:dispatchPath><con:response name="response" id="8201f913-56e2-4219-a78e-af7f89a98731" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent><![CDATA[{
     "referenceNum": "${referenceNum}",
     "phoneNumber": "1115555555",
     "deviceId": "${deviceId}",
     "returnMessage": "<b>(530) 555 5555</b> nolu cep telefonuna hesabinizdan <b>9,00 TL </b> gonderilmistir. Islem referansiniz <b>1111111</b>.",
     "statusCode": 0,
     "channel": null
-}]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="requestMoney.json" method="POST" resourcePath="/requestMoney.json" id="e09c8f08-32d6-47db-86ad-4a103ff98e7d"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+}]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="8ea2ab6a-d550-47f7-8c24-64984521b085" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>
+{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="requestMoney.json" method="POST" resourcePath="/requestMoney.json" id="e09c8f08-32d6-47db-86ad-4a103ff98e7d"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
 def slurper = new JsonSlurper()
+try{
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def requestType = parsedReq.requestType
+	def tarPhone = parsedReq.requestInfo.tarPhone
+	def tranAmnt=parsedReq.requestInfo.tranAmnt
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.tarPhone=tarPhone
+	requestContext.tranAmnt=tranAmnt
+	requestContext.requestType=requestType
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def requestType = parsedReq.requestType
-def tarPhone = parsedReq.requestInfo.tarPhone
-def tranAmnt=parsedReq.requestInfo.tranAmnt
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.tarPhone=tarPhone
-requestContext.tranAmnt=tranAmnt
-requestContext.requestType=requestType</con:dispatchPath><con:response name="response" id="c5525252-ed33-4a0f-9c65-f6726e2d373f" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="c5525252-ed33-4a0f-9c65-f6726e2d373f" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "requestType": "${requestType}",
     "requestInfo": {
         "tarPhone": "${tarPhone}",
@@ -787,59 +712,23 @@ requestContext.requestType=requestType</con:dispatchPath><con:response name="res
     "statusCode": 0,
     "channel": null
 }
-</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="market.json" method="POST" resourcePath="/market.json" id="e04d1d46-869f-4440-802c-e198cabcdd52"><con:settings/><con:defaultResponse xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
-// Script dispatcher is used to select a response based on the incoming request.
-// Here are few examples showing how to match based on path, query param, header and body
+</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="ae5fa70e-e6d4-4691-b495-30c09dae429b" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>
+{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="market.json" method="POST" resourcePath="/market.json" id="e04d1d46-869f-4440-802c-e198cabcdd52"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
-// Match based on path
-def requestPath = mockRequest.getPath()
-log.info "Path: "+ requestPath
+def slurper = new JsonSlurper()
+def req =mockRequest.requestContent
+log.info "req:"+req
 
-if( requestPath.contains("json") )
-{
-    // return the name of the response you want to dispatch
-    return "JSON Response"
+if(req){
+
+	log.error  "Bu servis input parametresi almamaktadir"
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
 }
 
-
-// Match based on query parameter
-def queryString = mockRequest.getRequest().getQueryString()
-log.info "QueryString: " + queryString
-
-if( queryString.contains("stockholm") )
-{
-    // return the name of the response you want to dispatch
-    return "Response Stockholm"
-}
-else if( queryString.contains("london") )
-{
-    // return the name of the response you want to dispatch
-    return "Response London"
-}
-
-
-// Match based on header
-def acceptEncodingHeaderList = mockRequest.getRequestHeaders().get("Accept-Encoding")
-log.info "AcceptEncoding Header List: " + acceptEncodingHeaderList
-
-if( acceptEncodingHeaderList.contains("gzip,deflate") )
-{
-    // return the name of the response you want to dispatch
-    return "GZiped Response"
-}
-
-
-// Match based on body
-def requestBody = mockRequest.getRequestContent()
-log.info "Request body: " + requestBody
-
-if( requestBody.contains("some data") )
-{
-    // return the name of the response you want to dispatch
-    return "Response N"
-}
-*/
-</con:dispatchPath><con:response name="response" id="f536577b-a0e1-488b-943e-f8f7f1532b21" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="f536577b-a0e1-488b-943e-f8f7f1532b21" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "marketList": [
         {
             "symbol": "XU100",
@@ -906,38 +795,54 @@ if( requestBody.contains("some data") )
             "last_mod": "08.09.2015 23:00:01"
         }
     ]
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="qrwithdrawmoney.json" method="POST" resourcePath="/qrwithdrawmoney.json" id="dc4ccaff-4658-4989-a9a2-b84e57c5b3b9"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="3823d995-7244-43e2-b7d0-4b081e66078e" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="qrwithdrawmoney.json" method="POST" resourcePath="/qrwithdrawmoney.json" id="dc4ccaff-4658-4989-a9a2-b84e57c5b3b9"><con:settings/><con:defaultResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
 def slurper = new JsonSlurper()
+try{
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def tranAmount = parsedReq.tranAmount
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.tranAmount=tranAmount
+	requestContext.returnMessage="Sayin musterimiz, "+tranAmount+" TL'lik baslattiginiz para cekme islemine Paramatik uzerinden devam edebilirsiniz."
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def tranAmount = parsedReq.tranAmount
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.tranAmount=tranAmount
-requestContext.returnMessage="Sayin musterimiz, "+tranAmount+" TL'lik baslattiginiz para cekme islemine Paramatik uzerinden devam edebilirsiniz."
-</con:dispatchPath><con:response name="response" id="95f9b73d-8de4-4877-bd63-d24946d2b51b" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="95f9b73d-8de4-4877-bd63-d24946d2b51b" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "deviceId": "${deviceId}",
     "returnMessage": "${returnMessage}",
     "statusCode": 0,
     "channel": null
-}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response></con:restMockAction><con:restMockAction name="gsmTLTopUpFromAccount.json" method="POST" resourcePath="/gsmTLTopUpFromAccount.json" id="89ac57da-b607-4491-9e62-703cfb660be6"><con:settings/><con:defaultResponse>response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
+}</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value/></con:header></con:response><con:response name="error" id="37f69a59-b2af-40f2-949c-6e5ce245bd12" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="gsmTLTopUpFromAccount.json" method="POST" resourcePath="/gsmTLTopUpFromAccount.json" id="89ac57da-b607-4491-9e62-703cfb660be6"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
 
 def slurper = new JsonSlurper()
+try{
+	def req =mockRequest.requestContent
+	def parsedReq = slurper.parseText(context.expand(req))
+	def targetOperator = parsedReq.targetOperator
+	def targetPhoneNum = parsedReq.targetPhoneNum
+	def tranAmount = parsedReq.tranAmount
+	def deviceId = parsedReq.deviceId
+	requestContext.deviceId=deviceId
+	requestContext.targetOperator=targetOperator
+	requestContext.targetPhoneNum=targetPhoneNum
+	requestContext.tranAmount=tranAmount
+	requestContext.returnMessage=targetPhoneNum+" nolu cep telefonuna "+tranAmount+" TL yuklenmistir. Garanti Bankasi"
+}catch(Exception e){
+	log.error  e.toString()
+	requestContext.deviceId=null
+	requestContext.statusCode="2023"
+	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
+	return "error"
+}
 
-def req =mockRequest.requestContent
-def parsedReq = slurper.parseText(context.expand(req))
-def targetOperator = parsedReq.targetOperator
-def targetPhoneNum = parsedReq.targetPhoneNum
-def tranAmount = parsedReq.tranAmount
-def deviceId = parsedReq.deviceId
-requestContext.deviceId=deviceId
-requestContext.targetOperator=targetOperator
-requestContext.targetPhoneNum=targetPhoneNum
-requestContext.tranAmount=tranAmount
-requestContext.returnMessage=targetPhoneNum+" nolu cep telefonuna "+tranAmount+" TL yuklenmistir. Garanti Bankasi"
-</con:dispatchPath><con:response name="response" id="650c82bd-eae4-484d-a1da-64b2a9c11a33" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+return "response"</con:dispatchPath><con:response name="response" id="650c82bd-eae4-484d-a1da-64b2a9c11a33" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
     "phoneNumber": "1115555555",
     "targetPhoneNum": "${targetPhoneNum}",
     "targetOperator": "${targetOperator}",
@@ -949,4 +854,4 @@ requestContext.returnMessage=targetPhoneNum+" nolu cep telefonuna "+tranAmount+"
 }
 
 
-</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation><ProjectSpecificExposureList>null###null</ProjectSpecificExposureList></con:sensitiveInformation></con:soapui-project>
+</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header><con:header><con:name>Access-Control-Max-Age</con:name><con:value>3628800</con:value></con:header><con:header><con:name>Access-Control-Allow-Methods</con:name><con:value>POST</con:value></con:header></con:response><con:response name="error" id="6f750df1-6594-4399-a4f9-38a9ca34eabb" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"errorID":"${statusCode}","exceptionInfo":"${errorMessage}.","deviceId":null}</con:responseContent></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation><ProjectSpecificExposureList>null###null</ProjectSpecificExposureList></con:sensitiveInformation></con:soapui-project>
