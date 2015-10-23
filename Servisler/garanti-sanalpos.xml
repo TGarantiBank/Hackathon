@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project id="c8917cf3-2a06-4d16-b9ab-c3dae5d8e13c" activeEnvironment="Default" name="garanti-sanalpos" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="5fda1f79-5e6c-4fe7-8b9c-2fa4616ecd32" port="9999" path="/" host="Esma-PC" name="garanti-sanalpos-mock" docroot=""><con:settings/><con:properties/><con:restMockAction name="/VPServlet" method="POST" resourcePath="/VPServlet" id="68ae8259-0470-495b-ab3f-78c5eec52c05"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath><![CDATA[def requestBody = mockRequest.getRequestContent()
+log.info "requestBody: " + requestBody
+def body=java.net.URLDecoder.decode(requestBody)
+def xml=body
+def  xmlStartPoint=body.indexOf("<GVPSRequest>");
+log.info "xml start point:"+xmlStartPoint
+if(xmlStartPoint==-1){
+	return "error"
+}
+if(xmlStartPoint>0){
+	 xml=body.substring(xmlStartPoint)
+}
 
-def encodedBody=java.net.URLDecoder.decode(requestBody)
-def xml=encodedBody.substring(5)
+log.info "xml: " + xml
 def holder = new com.eviware.soapui.support.XmlHolder( xml )
 def type= holder["//Transaction/Type"] 
-log.info "xml: " + xml
-
 if(type=='sales'){
 	def installmentCount=holder["//Transaction/InstallmentCnt"]	
 	def rewardList=holder["//Transaction/RewardList/Reward"]
@@ -20,8 +28,6 @@ if(type=='sales'){
 	}else{
 		log.info "pesin satis"		
 	}
-
-
 	if(rewardList.size()!=0 &&rewardAmount!=null&&rewardAmount.trim().length()!=0&&rewardAmount.toInteger()>=1){
 		
 		log.info "rewardAmount:"+rewardAmount
@@ -454,4 +460,45 @@ else{
 ]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="error" id="f776d4ac-1955-45a7-acc5-81ffa6bf77dd" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;GVPSResponse>
 	Invalid Transaction Type
 &lt;/GVPSResponse>
-</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
+</con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="sales_error" id="c8a8c196-f60f-4b8e-b286-8e8d7f524d21" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
+	<Mode>${Mode}</Mode>	
+	<Terminal>
+		<ProvUserID>${ProvUserID}</ProvUserID>
+		<UserID>${UserID}</UserID>
+		<ID>${ID}</ID>
+		<MerchantID>${MerchantID}</MerchantID>
+	</Terminal>
+	<Customer>
+		<IPAddress>${IPAddress}</IPAddress>
+		<EmailAddress>${EmailAddress}</EmailAddress>
+	</Customer>
+	<Order>
+		<OrderID>${OrderID}</OrderID>
+		<GroupID>${GroupID}</GroupID>
+	</Order>
+	<Transaction>
+		<Response>
+			<Source>HOST</Source>
+			<Code>54</Code>
+			<ReasonCode>54</ReasonCode>
+			<Message>Declined</Message>
+			<ErrorMsg>İsleminizi gerceklestiremiyoruz.Tekrar deneyiniz</ErrorMsg>
+			<SysErrMsg>SON KULLANMA TARIHI HATALI</SysErrMsg>
+		</Response>
+		<RetrefNum>311710676031</RetrefNum>
+		<AuthCode></AuthCode>
+		<BatchNum>000008</BatchNum>
+		<SequenceNum>000052</SequenceNum>
+		<ProvDate>20130427 10:26:04</ProvDate>
+		<CardNumberMasked>554960******3012</CardNumberMasked>
+		<CardHolderName>PE*** PEL** TON***</CardHolderName>
+		<CardType>BONUS</CardType>
+		<HashData>D2F5BA37A98C5DDDC34B28FA56FF03FC782713BD</HashData>
+		<HostMsgList></HostMsgList>
+		<RewardInqResult>
+			<RewardList></RewardList>
+			<ChequeList></ChequeList>
+		</RewardInqResult>
+	</Transaction>
+</GVPSResponse>
+]]></con:responseContent></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
