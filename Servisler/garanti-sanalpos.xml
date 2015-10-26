@@ -24,14 +24,15 @@ if(type=='sales'){
 	def amount=holder["//Transaction/Amount"]
 	def currencyCode=holder["//Transaction/CurrencyCode"]
 	def installmentCount=holder["//Transaction/InstallmentCnt"]		
+
 	def rewardList=holder["//Transaction/RewardList/Reward"]
 	def rewardAmount =holder["//Transaction/RewardList/Reward[position()=1]/UsedAmount"]
-
-	if(installmentCount!=null&&installmentCount.trim().length()!=0&&installmentCount.toInteger()>1){
+     
+     if(installmentCount ==null||installmentCount.size()==0||installmentCount.trim().length()==0||installmentCount.toInteger()<=1){
+     			log.info "pesin satis"		
+	}else{
 		installmentStatu=true
 		log.info "taksitli satis. taksit sayisi:"||installmentCount		
-	}else{
-		log.info "pesin satis"		
 	}
 	if(rewardList.size()!=0 &&rewardAmount!=null&&rewardAmount.trim().length()!=0&&rewardAmount.toInteger()>=1){
 		
