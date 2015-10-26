@@ -41,8 +41,6 @@ if(type=='sales'){
 		log.info "bonus kullanarak satis"		
 	}
 
-	
-	
 	requestContext.Mode= holder["//Mode"] 
 	requestContext.ProvUserID= holder["//Terminal/ProvUserID"] 
 	requestContext.UserID=holder["//Terminal/UserID"]
@@ -494,7 +492,7 @@ else{
 	</Transaction>
 </GVPSResponse>
 ]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="error" id="f776d4ac-1955-45a7-acc5-81ffa6bf77dd" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;GVPSResponse>
-	Invalid Transaction Type
+	Invalid Transaction 
 &lt;/GVPSResponse>
 </con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="sales_error" id="c8a8c196-f60f-4b8e-b286-8e8d7f524d21" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
 	<Mode>${Mode}</Mode>	
