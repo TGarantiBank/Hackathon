@@ -5,6 +5,8 @@ def body=java.net.URLDecoder.decode(requestBody)
 def xml=body
 def  xmlStartPoint=body.indexOf("<GVPSRequest>");
 log.info "xml start point:"+xmlStartPoint
+def errorStatus=false
+def message=""
 if(xmlStartPoint==-1){
 	return "error"
 }
@@ -23,8 +25,11 @@ if(type=='sales'){
 	def rewardStatu=false
 	def amount=holder["//Transaction/Amount"]
 	def currencyCode=holder["//Transaction/CurrencyCode"]
+	def cardNumber=holder["//Card/Number"]
+	def cardExpireDate=holder["//Card/ExpireDate"]
+	def cardCVV=holder["//Card/CVV2"]
+	
 	def installmentCount=holder["//Transaction/InstallmentCnt"]		
-
 	def rewardList=holder["//Transaction/RewardList/Reward"]
 	def rewardAmount =holder["//Transaction/RewardList/Reward[position()=1]/UsedAmount"]
      
@@ -51,22 +56,48 @@ if(type=='sales'){
 	requestContext.OrderID=holder["//Order/OrderID"]
 	requestContext.GroupID=holder["//Order/GroupID"]
 	//Validations
-	if(amount==null||amount.trim().length()==0||currencyCode==null||currencyCode.trim().length()==0){
-		if(installmentStatu){
-			context.httpResponse="sales_installment_error"		
-		}else if (rewardStatu){
-			context.httpResponse="sales_with_bonus_error"
-		}else{
-			context.httpResponse = "sales_error"	
-		}
+	if(amount==null||amount.trim().length()==0){
+		errorStatus=true
+		message=message+"Amount alani bos olamaz."
 	}
-	//Successfull Response
-	if(installmentStatu){
-			context.httpResponse="sales_installment_success"		
-	}else if (rewardStatu) {
-			context.httpResponse="sales_with_bonus_success"
-	}else{	
-			context.httpResponse = "sales_success"	
+	if(currencyCode==null||currencyCode.trim().length()==0){
+		errorStatus=true
+		message=message+"CurrencyCode alani bos olamaz."
+	}
+
+	if(cardNumber==null||cardNumber.trim().length()==0){
+		errorStatus=true
+		message=message+"Card Number alani bos olamaz."
+	}
+	if(cardExpireDate==null||cardExpireDate.trim().length()==0){
+		errorStatus=true
+		message=message+"Card ExpireDate alani bos olamaz."
+	}
+	if(cardCVV==null||cardCVV.trim().length()==0){
+		errorStatus=true
+		message=message+"Card CVV alani bos olamaz."
+	}
+	if(errorStatus){
+		context.reasonCode=30
+		context.message="Mesajin Formati Hatali"
+		context.messageDetail=message					
+
+		if(installmentStatu){
+			return "sales_installment_error"		
+		}else if (rewardStatu){
+			return "sales_with_bonus_error"
+		}else{
+			return  "sales_error"	
+		}
+	}else{
+		//Successfull Response
+		if(installmentStatu){
+				return "sales_installment_success"		
+		}else if (rewardStatu) {
+				return "sales_with_bonus_success"
+		}else{	
+				return "sales_success"	
+		}
 	}
 /*
  * ----------------------ON OTORIZASYON-------------------------
@@ -82,7 +113,43 @@ if(type=='sales'){
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
 	requestContext.OrderID=holder["//Order/OrderID"]
 	requestContext.GroupID=holder["//Order/GroupID"]
-	context.httpResponse = "preauth_success"	
+	def amount=holder["//Transaction/Amount"]
+	def currencyCode=holder["//Transaction/CurrencyCode"]
+	def cardNumber=holder["//Card/Number"]
+	def cardExpireDate=holder["//Card/ExpireDate"]
+	def cardCVV=holder["//Card/CVV2"]
+		//Validations
+	if(amount==null||amount.trim().length()==0){
+		errorStatus=true
+		message=message+"Amount alani bos olamaz."
+	}
+	if(currencyCode==null||currencyCode.trim().length()==0){
+		errorStatus=true
+		message=message+"CurrencyCode alani bos olamaz."
+	}
+
+	if(cardNumber==null||cardNumber.trim().length()==0){
+		errorStatus=true
+		message=message+"Card Number alani bos olamaz."
+	}
+	if(cardExpireDate==null||cardExpireDate.trim().length()==0){
+		errorStatus=true
+		message=message+"Card ExpireDate alani bos olamaz."
+	}
+	if(cardCVV==null||cardCVV.trim().length()==0){
+		errorStatus=true
+		message=message+"Card CVV alani bos olamaz."
+	}
+	if(errorStatus){
+		context.reasonCode=30
+		context.message="Mesajin Formati Hatali"
+		context.messageDetail=message					
+		return "preauth_error"
+	
+	}else{
+		return  "preauth_success"	
+	}
+	
 /*
  * ----------------------ON OTORIZASYON KAPAMA-------------------------
  */
@@ -94,7 +161,30 @@ if(type=='sales'){
 	requestContext.ID=holder["//Terminal/ID"]
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
 	requestContext.OrderID=holder["//Order/OrderID"]
-	context.httpResponse = "preauth_success"	
+	def amount=holder["//Transaction/Amount"]
+	def orderID=holder["//Order/OrderID"]
+	
+
+
+	//Validations
+	if(amount==null||amount.trim().length()==0){
+		errorStatus=true
+		message=message+"Amount alani bos olamaz."
+	}
+	if(orderID==null||orderID.trim().length()==0){
+		errorStatus=true
+		message=message+"OrderID alani bos olamaz."
+	}
+
+	
+	if(errorStatus){
+		context.reasonCode=30
+		context.message="Mesajin Formati Hatali"
+		context.messageDetail=message					
+		return "postauth_error"
+	}else{
+		return  "postauth_success"	
+	}
 /*
  * ----------------------IPTAL-------------------------
  */
@@ -109,7 +199,20 @@ if(type=='sales'){
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
 	requestContext.OrderID=holder["//Order/OrderID"]
 	requestContext.GroupID=holder["//Order/GroupID"]
-	context.httpResponse = "void_success"	
+	def orderID=holder["//Order/OrderID"]
+	//Validations
+	if(orderID==null||orderID.trim().length()==0){
+		errorStatus=true
+		message=message+"OrderID alani bos olamaz."
+	}	
+	if(errorStatus){
+		context.reasonCode=30
+		context.message="Mesajin Formati Hatali"
+		context.messageDetail=message					
+		return "void_error"	
+	}else{
+		return  "void_success"	
+	}
 /*
  * ----------------------IADE-------------------------
  */	
@@ -124,7 +227,21 @@ if(type=='sales'){
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
 	requestContext.OrderID=holder["//Order/OrderID"]
 	requestContext.GroupID=holder["//Order/GroupID"]
-	context.httpResponse = "refund_success"	
+	def orderID=holder["//Order/OrderID"]
+	//Validations
+	if(orderID==null||orderID.trim().length()==0){
+		errorStatus=true
+		message=message+"OrderID alani bos olamaz."
+	}	
+	if(errorStatus){
+		context.reasonCode=30
+		context.message="Mesajin Formati Hatali"
+		context.messageDetail=message					
+		return "refund_error"	
+	}else{
+		return "refund_success"	
+	}
+	
 /*
  * ----------------------BONUS SORGULAMA-------------------------
  */	
@@ -139,13 +256,50 @@ if(type=='sales'){
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
 	requestContext.OrderID=holder["//Order/OrderID"]
 	requestContext.GroupID=holder["//Order/GroupID"]
-	context.httpResponse = "reward_query_success"	
+	def amount=holder["//Transaction/Amount"]
+	def currencyCode=holder["//Transaction/CurrencyCode"]
+	def cardNumber=holder["//Card/Number"]
+	def cardExpireDate=holder["//Card/ExpireDate"]
+	def cardCVV=holder["//Card/CVV2"]
+
+
+	//Validations
+	if(amount==null||amount.trim().length()==0){
+		errorStatus=true
+		message=message+"Amount alani bos olamaz."
+	}
+	if(currencyCode==null||currencyCode.trim().length()==0){
+		errorStatus=true
+		message=message+"CurrencyCode alani bos olamaz."
+	}
+
+	if(cardNumber==null||cardNumber.trim().length()==0){
+		errorStatus=true
+		message=message+"Card Number alani bos olamaz."
+	}
+	if(cardExpireDate==null||cardExpireDate.trim().length()==0){
+		errorStatus=true
+		message=message+"Card ExpireDate alani bos olamaz."
+	}
+	if(cardCVV==null||cardCVV.trim().length()==0){
+		errorStatus=true
+		message=message+"Card CVV alani bos olamaz."
+	}
+	if(errorStatus){
+		context.reasonCode=30
+		context.message="Mesajin Formati Hatali"
+		context.messageDetail=message					
+		return "reward_query_error"
+	}else{
+		return  "reward_query_success"	
+	}
 }/*
  * ----------------------DIGER------------------------
  */
 else{
-	log.info "Invalid Transaction Type"
-	context.httpResponse = "error"	
+
+	log.info "Invalid Message"
+	return "error"	
 }
 
 ]]></con:dispatchPath><con:response name="sales_success" id="c6d3da0b-2dd9-456b-be84-cbc59227bd7d" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
@@ -495,7 +649,7 @@ else{
 	Invalid Transaction 
 &lt;/GVPSResponse>
 </con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="sales_error" id="c8a8c196-f60f-4b8e-b286-8e8d7f524d21" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-	<Mode>${Mode}</Mode>	
+	<Mode>${Mode}1</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
 		<UserID>${UserID}</UserID>
@@ -512,12 +666,12 @@ else{
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>HOST</Source>
-			<Code>54</Code>
-			<ReasonCode>54</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>Isleminizi gerceklestiremiyoruz.Tekrar deneyiniz</ErrorMsg>
-			<SysErrMsg>SON KULLANMA TARIHI HATALI</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>311710676031</RetrefNum>
 		<AuthCode></AuthCode>
@@ -536,7 +690,7 @@ else{
 	</Transaction>
 </GVPSResponse>
 ]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="preauth_error" id="f54af4b6-f21e-4f29-afd5-d225719fe4fe" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-	<Mode></Mode>
+	<Mode>2</Mode>
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
 		<UserID>${UserID}</UserID>
@@ -553,12 +707,12 @@ else{
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>HOST</Source>
-			<Code>54</Code>
-			<ReasonCode>54</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>Isleminizi gerceklestiremiyoruz.Tekrar deneyiniz</ErrorMsg>
-			<SysErrMsg>SON KULLANMA TARIHI HATALI</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>311710676031</RetrefNum>
 		<AuthCode></AuthCode>
@@ -577,19 +731,19 @@ else{
 	</Transaction>
 </GVPSResponse>
 ]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="postauth_error" id="3e839c13-dced-416b-955d-1325b3c29ff8" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-	<Mode>${Mode}</Mode>
+	<Mode>${Mode}3</Mode>
 	<Order>
 		<OrderID>${OrderID}</OrderID>
 		<GroupID></GroupID>
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>HOST</Source>
-			<Code>54</Code>
-			<ReasonCode>54</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>İşleminizi gerçekleştiremiyoruz.Tekrar deneyiniz</ErrorMsg>
-			<SysErrMsg>SON KULLANMA TARIHI HATALI</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>105809652540</RetrefNum>
 		<AuthCode>
@@ -610,7 +764,7 @@ else{
 		</RewardInqResult>
 	</Transaction>
 </GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="void_error" id="ff5b3da5-90ad-471e-af93-c524c157f88a" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-	<Mode>${Mode}</Mode>	
+	<Mode>${Mode}4</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
 		<UserID>${UserID}</UserID>
@@ -627,13 +781,12 @@ else{
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>GVPS</Source>
-			<Code>92</Code>
-			<ReasonCode>0202</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>İptal edebileceğiniz birden fazla işlem var, RRN bilgisi
-				gonderi</ErrorMsg>
-			<SysErrMsg>ErrorId: 0202</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>311617674819</RetrefNum>
 		<AuthCode />
@@ -651,7 +804,7 @@ else{
 		</RewardInqResult>
 	</Transaction>
 </GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="refund_error" id="4c012a84-951f-421e-8379-58dd10192d0c" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-	<Mode>${Mode}</Mode>	
+	<Mode>${Mode}5</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
 		<UserID>${UserID}</UserID>
@@ -668,12 +821,12 @@ else{
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>GVPS</Source>
-			<Code>92</Code>
-			<ReasonCode>0214</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>Iade tutarı, satis tutarindan buyuk olamaz</ErrorMsg>
-			<SysErrMsg>ErrorId: 0214</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>311616674775</RetrefNum>
 		<AuthCode></AuthCode>
@@ -692,7 +845,7 @@ else{
 	</Transaction>
 </GVPSResponse>
 ]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="sales_installment_error" id="f170a437-c17d-44c0-abdf-24882b6f2522" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-<Mode>${Mode}</Mode>	
+<Mode>${Mode}6</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
 		<UserID>${UserID}</UserID>
@@ -709,12 +862,12 @@ else{
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>HOST</Source>
-			<Code>58</Code>
-			<ReasonCode>58</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>Isleminizi gerceklestiremiyoruz.Tekrar deneyiniz</ErrorMsg>
-			<SysErrMsg>Isyerinin urun-islem yetkisi yok</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>311710676041</RetrefNum>
 		<AuthCode></AuthCode>
@@ -733,7 +886,7 @@ else{
 	</Transaction>
 </GVPSResponse>
 ]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="reward_query_error" id="1cd173a1-4f3a-4c9f-a4b4-7750150bb022" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-	<Mode>${Mode}</Mode>	
+	<Mode>${Mode}7</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
 		<UserID>${UserID}</UserID>
@@ -750,12 +903,12 @@ else{
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>HOST</Source>
-			<Code>54</Code>
-			<ReasonCode>54</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>Isleminizi gerceklestiremiyoruz.Tekrar deneyiniz</ErrorMsg>
-			<SysErrMsg>SON KULLANMA TARIHI HATALI</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>105809652540</RetrefNum>
 		<AuthCode>
@@ -776,7 +929,7 @@ else{
 		</RewardInqResult>
 	</Transaction>
 </GVPSResponse>]]></con:responseContent><con:header><con:name>Access-Control-Allow-Origin</con:name><con:value>*</con:value></con:header></con:response><con:response name="sales_with_bonus_error" id="f9bda2ab-8ac8-4483-ad32-cbd3328f2c06" httpResponseStatus="200"><con:settings/><con:responseContent><![CDATA[<GVPSResponse>
-	<Mode>${Mode}</Mode>	
+	<Mode>${Mode}8</Mode>	
 	<Terminal>
 		<ProvUserID>${ProvUserID}</ProvUserID>
 		<UserID>${UserID}</UserID>
@@ -793,12 +946,12 @@ else{
 	</Order>
 	<Transaction>
 		<Response>
-			<Source>HOST</Source>
-			<Code>51</Code>
-			<ReasonCode>51</ReasonCode>
+			<Source>HOST</Source>					
+			<Code>${reasonCode}</Code>
+			<ReasonCode>${reasonCode}</ReasonCode>
 			<Message>Declined</Message>
-			<ErrorMsg>Isleminizi gerceklestiremiyoruz.Tekrar deneyiniz</ErrorMsg>
-			<SysErrMsg>ODUL BAKIYESI YETERSIZ.</SysErrMsg>
+			<ErrorMsg>${message}</ErrorMsg>
+			<SysErrMsg>${messageDetail}</SysErrMsg>
 		</Response>
 		<RetrefNum>311616674713</RetrefNum>
 		<AuthCode />
