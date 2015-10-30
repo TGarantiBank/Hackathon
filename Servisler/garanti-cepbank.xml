@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project id="7ca8ac02-b3f5-4962-a9c8-db41466a160a" activeEnvironment="Default" name="garanti-cepbank" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="6bc4f65a-a675-4db5-9870-7271ad5ed1a9" port="8888" path="/cepbankMobile" host="Esma-PC" name="garanti-cepbank-mock" docroot=""><con:settings/><con:properties/><con:onRequestScript/><con:restMockAction name="getunitinfo.json" method="POST" resourcePath="/getunitinfo.json" id="281bd3f0-265c-4a60-9ca4-b9b00e700225"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import groovy.json.*
-
 def slurper = new JsonSlurper()
 try{
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def deviceId = parsedReq.deviceId
 }catch(Exception e){
+	log.info "Exception:"+e.toString()
 	requestContext.deviceId=null
 	requestContext.statusCode="2023"
 	requestContext.errorMessage="Ozur dileriz, isleminizi su anda gerceklestiremiyoruz. Lutfen daha sonra tekrar deneyin"
@@ -174,7 +175,7 @@ return "response"
 def slurper = new JsonSlurper()
 def req =mockRequest.requestContent
 try{
-	
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def deviceId = parsedReq.deviceId
 	requestContext.deviceId=deviceId
@@ -200,7 +201,7 @@ return "response"</con:dispatchPath><con:response name="response" id="8dbc14a9-9
 def slurper = new JsonSlurper()
 def req =mockRequest.requestContent
 try{
-	
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def deviceId = parsedReq.deviceId
 	requestContext.deviceId=deviceId
@@ -220,6 +221,7 @@ return "response"</con:dispatchPath><con:response name="response" id="70125bda-a
 def slurper = new JsonSlurper()
 def req =mockRequest.requestContent
 try{
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def deviceId = parsedReq.deviceId
 	requestContext.deviceId=deviceId
@@ -238,6 +240,7 @@ return "response"</con:dispatchPath><con:response name="response" id="486937cc-d
 
 def slurper = new JsonSlurper()
 def req =mockRequest.requestContent
+log.info "request:"+req
 if(req){
 	
 	log.error  "Bu servis input parametresi almamaktadir"
@@ -368,7 +371,7 @@ return "response"</con:dispatchPath><con:response name="response" id="0a358b7b-3
 def slurper = new JsonSlurper()
 def req =mockRequest.requestContent
 try{
-	
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def deviceId = parsedReq.deviceId
 	requestContext.deviceId=deviceId
@@ -533,6 +536,7 @@ import groovy.json.*
 def slurper = new JsonSlurper()
 def req =mockRequest.requestContent
 try{	
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def cardNum = parsedReq.cardNum
 	def tranAmount = parsedReq.tranAmount
@@ -561,6 +565,7 @@ try{
 	def slurper = new JsonSlurper()
 	
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def referenceNum = parsedReq.referenceNum
 	def cancelPhoneNum = parsedReq.cancelPhoneNum
@@ -591,6 +596,7 @@ try{
 	def slurper = new JsonSlurper()
 	
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def targetPhoneNum = parsedReq.targetPhoneNum
 	def tranAmount = parsedReq.tranAmount
@@ -623,6 +629,7 @@ try{
 	def slurper = new JsonSlurper()
 	
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def referenceNum = parsedReq.referenceNum
 	def cancelPhoneNum = parsedReq.cancelPhoneNum
@@ -655,12 +662,12 @@ return "response"
 def slurper = new JsonSlurper()
 try{
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def referenceNum = parsedReq.referenceNum
 	def deviceId = parsedReq.deviceId
 	requestContext.deviceId=deviceId
 	requestContext.referenceNum=referenceNum
-	log.info "num:"+referenceNum
 }catch(Exception e){
 	log.error  e.toString()
 	requestContext.deviceId=null
@@ -682,6 +689,7 @@ return "response"</con:dispatchPath><con:response name="response" id="8201f913-5
 def slurper = new JsonSlurper()
 try{
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def requestType = parsedReq.requestType
 	def tarPhone = parsedReq.requestInfo.tarPhone
@@ -801,6 +809,7 @@ return "response"</con:dispatchPath><con:response name="response" id="f536577b-a
 def slurper = new JsonSlurper()
 try{
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def tranAmount = parsedReq.tranAmount
 	def deviceId = parsedReq.deviceId
@@ -825,6 +834,7 @@ return "response"</con:dispatchPath><con:response name="response" id="95f9b73d-8
 def slurper = new JsonSlurper()
 try{
 	def req =mockRequest.requestContent
+	log.info "request:"+req
 	def parsedReq = slurper.parseText(context.expand(req))
 	def targetOperator = parsedReq.targetOperator
 	def targetPhoneNum = parsedReq.targetPhoneNum

@@ -27,14 +27,13 @@ if(type=='sales'){
 	def currencyCode=holder["//Transaction/CurrencyCode"]
 	def cardNumber=holder["//Card/Number"]
 	def cardExpireDate=holder["//Card/ExpireDate"]
-	def cardCVV=holder["//Card/CVV2"]
 	
 	def installmentCount=holder["//Transaction/InstallmentCnt"]		
 	def rewardList=holder["//Transaction/RewardList/Reward"]
 	def rewardAmount =holder["//Transaction/RewardList/Reward[position()=1]/UsedAmount"]
      
      if(installmentCount ==null||installmentCount.size()==0||installmentCount.trim().length()==0||installmentCount.toInteger()<=1){
-     			log.info "pesin satis"		
+     	log.info "pesin satis"		
 	}else{
 		installmentStatu=true
 		log.info "taksitli satis. taksit sayisi:"||installmentCount		
@@ -53,8 +52,18 @@ if(type=='sales'){
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
 	requestContext.IPAddress=holder["//Customer/IPAddress"]
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
-	requestContext.OrderID=holder["//Order/OrderID"]
-	requestContext.GroupID=holder["//Order/GroupID"]
+	def orderID=holder["//Order/OrderID"]
+	def groupID=holder["//Order/GroupID"]
+	
+	if(orderID.size()==0){
+		orderID="SISTFA03907C0DB14A38B3BA380722891160"
+	}
+	if(groupID.size()==0){
+		groupID="";
+	}
+	requestContext.OrderID=orderID
+	requestContext.GroupID=groupID
+
 	//Validations
 	if(amount==null||amount.trim().length()==0){
 		errorStatus=true
@@ -73,10 +82,7 @@ if(type=='sales'){
 		errorStatus=true
 		message=message+"Card ExpireDate alani bos olamaz."
 	}
-	if(cardCVV==null||cardCVV.trim().length()==0){
-		errorStatus=true
-		message=message+"Card CVV alani bos olamaz."
-	}
+	
 	if(errorStatus){
 		context.reasonCode=30
 		context.message="Mesajin Formati Hatali"
@@ -112,12 +118,20 @@ if(type=='sales'){
 	requestContext.IPAddress=holder["//Customer/IPAddress"]
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
 	requestContext.OrderID=holder["//Order/OrderID"]
-	requestContext.GroupID=holder["//Order/GroupID"]
+	def orderID=holder["//Order/OrderID"]	
+	def groupID=holder["//Order/GroupID"]
+	if(orderID.size()==0){
+		orderID="SISTFA03907C0DB14A38B3BA380722891160"
+	}
+	if(groupID.size()==0){
+		groupID="";
+	}
+	requestContext.OrderID=orderID
+	requestContext.GroupID=groupID
 	def amount=holder["//Transaction/Amount"]
 	def currencyCode=holder["//Transaction/CurrencyCode"]
 	def cardNumber=holder["//Card/Number"]
 	def cardExpireDate=holder["//Card/ExpireDate"]
-	def cardCVV=holder["//Card/CVV2"]
 		//Validations
 	if(amount==null||amount.trim().length()==0){
 		errorStatus=true
@@ -136,10 +150,7 @@ if(type=='sales'){
 		errorStatus=true
 		message=message+"Card ExpireDate alani bos olamaz."
 	}
-	if(cardCVV==null||cardCVV.trim().length()==0){
-		errorStatus=true
-		message=message+"Card CVV alani bos olamaz."
-	}
+	
 	if(errorStatus){
 		context.reasonCode=30
 		context.message="Mesajin Formati Hatali"
@@ -160,9 +171,17 @@ if(type=='sales'){
 	requestContext.UserID=holder["//Terminal/UserID"]
 	requestContext.ID=holder["//Terminal/ID"]
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
-	requestContext.OrderID=holder["//Order/OrderID"]
 	def amount=holder["//Transaction/Amount"]
 	def orderID=holder["//Order/OrderID"]
+	def groupID=holder["//Order/GroupID"]
+	if(orderID.size()==0){
+		orderID=""
+	}
+	if(groupID.size()==0){
+		groupID="";
+	}
+	requestContext.OrderID=orderID
+	requestContext.GroupID=groupID
 	
 
 
@@ -196,15 +215,28 @@ if(type=='sales'){
 	requestContext.ID=holder["//Terminal/ID"]
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
 	requestContext.IPAddress=holder["//Customer/IPAddress"]
-	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
-	requestContext.OrderID=holder["//Order/OrderID"]
-	requestContext.GroupID=holder["//Order/GroupID"]
+	def emailAddress=holder["//Customer/EmailAddress"]
+	if(emailAddress.size()==0){
+		emailAddress="";
+	}
+	requestContext.EmailAddress=emailAddress
 	def orderID=holder["//Order/OrderID"]
+	def groupID=holder["//Order/GroupID"]
+	if(orderID.size()==0){
+		orderID=""
+	}
+	if(groupID.size()==0){
+		groupID="";
+	}
+	requestContext.OrderID=orderID
+	requestContext.GroupID=groupID
+	
 	//Validations
 	if(orderID==null||orderID.trim().length()==0){
 		errorStatus=true
 		message=message+"OrderID alani bos olamaz."
 	}	
+	
 	if(errorStatus){
 		context.reasonCode=30
 		context.message="Mesajin Formati Hatali"
@@ -224,10 +256,21 @@ if(type=='sales'){
 	requestContext.ID=holder["//Terminal/ID"]
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
 	requestContext.IPAddress=holder["//Customer/IPAddress"]
-	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
-	requestContext.OrderID=holder["//Order/OrderID"]
-	requestContext.GroupID=holder["//Order/GroupID"]
+	def emailAddress=holder["//Customer/EmailAddress"]
+	if(emailAddress.size()==0){
+		emailAddress=""
+	}
+	requestContext.EmailAddress=emailAddress
 	def orderID=holder["//Order/OrderID"]
+	def groupID=holder["//Order/GroupID"]
+	if(orderID.size()==0){
+		orderID=""
+	}
+	if(groupID.size()==0){
+		groupID="";
+	}
+	requestContext.OrderID=orderID
+	requestContext.GroupID=groupID
 	//Validations
 	if(orderID==null||orderID.trim().length()==0){
 		errorStatus=true
@@ -254,8 +297,16 @@ if(type=='sales'){
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
 	requestContext.IPAddress=holder["//Customer/IPAddress"]
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
-	requestContext.OrderID=holder["//Order/OrderID"]
-	requestContext.GroupID=holder["//Order/GroupID"]
+	def orderID=holder["//Order/OrderID"]
+	def groupID=holder["//Order/GroupID"]
+	if(orderID.size()==0){
+		orderID=""
+	}
+	if(groupID.size()==0){
+		groupID="";
+	}
+	requestContext.OrderID=orderID
+	requestContext.GroupID=groupID
 	def amount=holder["//Transaction/Amount"]
 	def currencyCode=holder["//Transaction/CurrencyCode"]
 	def cardNumber=holder["//Card/Number"]
@@ -776,7 +827,7 @@ else{
 		<EmailAddress>${EmailAddress}</EmailAddress>
 	</Customer>
 	<Order>
-		<OrderID>1476</OrderID>
+		<OrderID>${OrderID}</OrderID>
 		<GroupID />
 	</Order>
 	<Transaction>
