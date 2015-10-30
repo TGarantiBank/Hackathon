@@ -216,7 +216,6 @@ if(type=='sales'){
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
 	requestContext.IPAddress=holder["//Customer/IPAddress"]
 	def emailAddress=holder["//Customer/EmailAddress"]
-	log.info "email"+emailAddress
 	if(emailAddress.size()==0l){
 		emailAddress="";
 	}
