@@ -24,13 +24,38 @@ Garanti Bankası Ürünlerini Nasıl Kullanacağım?
 Fikrinizi geliştireceğiniz projede Garanti Bankası servislerini kullanmanız
 gerekecektir. Bu amaçla size bankamızın servislerini simüle ettiğimiz bir servis
 alt yapısı sağlamaktayız. Kullanım kolaylığı sağlayabilmek için, sistemi kendi
-bilgisayarınızdan çalıştırabileceğiniz şekilde ayarladık. Servislerin lokal
-ortamda nasıl çalıştırılacağı konusunda aşağıdaki video anlatımından
-faydalanabilirsiniz. Daha detay bilgi ise
-[Wiki](<https://github.com/TGarantiBank/Hackhaton/wiki/Hackhaton>) sayfamızda
+bilgisayarınızdan çalıştırabileceğiniz şekilde ayarladık.
+
+Simülasyon servislerinin lokal ortamınızda çalıştırılabilmesi için 6 basit adım
+mevcuttur:
+
+ 
+
+1.  GitHub üzerinden simülasyon projelerinin indirilmesi
+
+2.  SoapUI uygulamasının kurulması
+
+3.  Simülasyon servislerinin çalıştırılması
+
+4.  Servisleri deneyebilmek için tarayıcı üzerinde çalışan RestClient uygulaması
+    kurulması
+
+5.  Örnek bir CepBank servisinin test edilmesi
+
+6.  Örnek bir SanalPos servisinin test edilmesi
+
+ 
+
+Bu adımların gerçekleştirimini aşağıdaki videodan izleyebilirsiniz.
+
+Daha detay bilgi ise
+
+[Wiki](\<https://github.com/TGarantiBank/Hackhaton/wiki/Hackhaton\>) sayfamızda
+
 mevcuttur.
 
  
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=2Y021Bqlcl8
-" target="_blank"><img src="http://img.youtube.com/vi/2Y021Bqlcl8/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+ 
+
+ 
