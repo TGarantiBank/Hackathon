@@ -48,10 +48,7 @@ mevcuttur:
 
 Bu adımların gerçekleştirimini aşağıdaki videodan izleyebilirsiniz.
 
-Daha detay bilgi ise
-
-[Wiki](\<https://github.com/TGarantiBank/Hackhaton/wiki/Hackhaton\>) sayfamızda
-
+Daha detay bilgi ise [Wiki](\<https://github.com/TGarantiBank/Hackhaton/wiki/Hackhaton\>) sayfamızda 
 mevcuttur.
 
  
