@@ -55,10 +55,10 @@ if(type=='sales'){
 	def orderID=holder["//Order/OrderID"]
 	def groupID=holder["//Order/GroupID"]
 	
-	if(orderID.size()==0){
+	if(orderID==null||orderID.size()==0){
 		orderID="SISTFA03907C0DB14A38B3BA380722891160"
 	}
-	if(groupID.size()==0){
+	if(groupID==null||groupID.size()==0){
 		groupID="";
 	}
 	requestContext.OrderID=orderID
@@ -216,20 +216,22 @@ if(type=='sales'){
 	requestContext.MerchantID=holder["//Terminal/MerchantID"]
 	requestContext.IPAddress=holder["//Customer/IPAddress"]
 	def emailAddress=holder["//Customer/EmailAddress"]
-	if(emailAddress.size()==0){
+	log.info "email"+emailAddress
+	if(emailAddress.size()==0l){
 		emailAddress="";
 	}
 	requestContext.EmailAddress=emailAddress
 	def orderID=holder["//Order/OrderID"]
 	def groupID=holder["//Order/GroupID"]
-	if(orderID.size()==0){
+	if(orderID==null||orderID.size()==0){
 		orderID=""
 	}
-	if(groupID.size()==0){
+	if(groupID==null||groupID.size()==0){
 		groupID="";
 	}
 	requestContext.OrderID=orderID
 	requestContext.GroupID=groupID
+	requestContext.EmailAddress=emailAddress
 	
 	//Validations
 	if(orderID==null||orderID.trim().length()==0){
@@ -263,10 +265,10 @@ if(type=='sales'){
 	requestContext.EmailAddress=emailAddress
 	def orderID=holder["//Order/OrderID"]
 	def groupID=holder["//Order/GroupID"]
-	if(orderID.size()==0){
+	if(orderID==null||orderID.size()==0){
 		orderID=""
 	}
-	if(groupID.size()==0){
+	if(groupID==null||groupID.size()==0){
 		groupID="";
 	}
 	requestContext.OrderID=orderID
@@ -299,10 +301,10 @@ if(type=='sales'){
 	requestContext.EmailAddress=holder["//Customer/EmailAddress"]
 	def orderID=holder["//Order/OrderID"]
 	def groupID=holder["//Order/GroupID"]
-	if(orderID.size()==0){
+	if(orderID==null||orderID.size()==0){
 		orderID=""
 	}
-	if(groupID.size()==0){
+	if(groupID==null||groupID.size()==0){
 		groupID="";
 	}
 	requestContext.OrderID=orderID
