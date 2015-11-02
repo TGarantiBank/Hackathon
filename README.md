@@ -6,8 +6,7 @@ içerisinde fikirlerini ürüne dönüştürme imkanı veren Garanti Bankası’
 HACKATHON etkinliğidir.
 
 Fikriniz ne olursa olsun, bir köşesinde ödeme sistemleri veya bankacılık
-ürünleri varsa bunu kodlayacağınız en doğru, eğlenceli ve bol sürprizli yer bu
-Hackathon olacaktır.
+ürünleri varsa bunu kodlayacağınız en doğru, eğlenceli ve bol sürprizli yer bu Hackathon olacaktır.
 
 Yarışmacıların herhangi bir amaca yönelik hayata geçirmek istedikleri
 fikirlerinin bir ödeme sistemi veya bankacılık ürünü içermesi gereklidir
