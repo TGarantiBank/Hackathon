@@ -41,7 +41,7 @@ Simülasyon servislerinin lokal ortamınızda çalıştırılabilmesi için 6 ba
 
 Bu adımların gerçekleştirimini aşağıdaki videodan izleyebilirsiniz.
 
-<a href="https://www.youtube.com/watch?v=GSgJ4I-lqKo&list=PLpsxEvsIhvsth9a2i2-y6S-KeALvVWC3d&index=2"  target="_blank"><img src="https://i.ytimg.com/vi/GSgJ4I-lqKo/default.jpg" 
+<a href="https://youtu.be/P3Ap9OLjP4o"  target="_blank"><img src="https://i.ytimg.com/vi/P3Ap9OLjP4o/default.jpg" 
 alt="Garanti Bankasi Hackathon" width="240" height="180" border="10" /></a>
 
 Daha detay bilgi ise [Wiki](<https://github.com/TGarantiBank/Hackathon/wiki>) sayfamızda mevcuttur.
