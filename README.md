@@ -20,15 +20,9 @@ edebilirsiniz.
 Garanti Bankası Ürünlerini Nasıl Kullanacağım?
 ----------------------------------------------
 
-Fikrinizi geliştireceğiniz projede Garanti Bankası servislerini kullanmanız
-gerekecektir. Bu amaçla size bankamızın servislerini simüle ettiğimiz bir servis
-alt yapısı sağlamaktayız. Kullanım kolaylığı sağlayabilmek için, sistemi kendi
-bilgisayarınızdan çalıştırabileceğiniz şekilde ayarladık.
-
-Simülasyon servislerinin lokal ortamınızda çalıştırılabilmesi için 6 basit adım
-mevcuttur:
-
- 
+İçerisinde bir ödeme veya bankacılık sistemi olması gereken projenizi geliştirirken zorunlu olmamakla birlikte Garanti Bankasının servislerinden yardım alabilirsiniz. Bu amaçla size bankamızın servislerini simüle ettiğimiz bir servis alt yapısı sağlamaktayız. Kullanım kolaylığı sağlayabilmek için, sistemi kendi bilgisayarınızdan çalıştırabileceğiniz şekilde ayarladık.
+ 
+Simülasyon servislerinin lokal ortamınızda çalıştırılabilmesi için 6 basit adım mevcuttur:
 
 1.  GitHub üzerinden simülasyon projelerinin indirilmesi
 
