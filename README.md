@@ -50,7 +50,6 @@ Daha detay bilgi ise [Wiki](<https://github.com/TGarantiBank/Hackathon/wiki/Hack
 Bunun için bilgisayarınıza herhangi bir kurulum yapmanıza gerek yok. [Wiki/IBM-Bluemix](<https://github.com/TGarantiBank/Hackathon/wiki/IBM-Bluemix>) sayfasındaki URL adresleri üzerinden API lere kolayca erişim sağlayabilirsiniz. Bu API'lerin kullanım şekli, kendi bilgisayarlarınıza kurduğunuz API'ler ile aynıdır.
 
 
- 
 Uygulamalarınızda iBeacon kullanmak isterseniz, [BleshServisleri](<https://github.com/TGarantiBank/Hackathon/tree/master/BleshServisleri>)'ni kullanabilirsiniz. Detaylı bilgiye [Wiki/Blesh](<https://github.com/TGarantiBank/Hackathon/wiki/Blesh>) sayfasından ulaşabilirsiniz.
 
 
