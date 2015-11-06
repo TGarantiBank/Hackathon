@@ -1,0 +1,405 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F31FF2401B3C44020001B400 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F31FF23F1B3C44020001B400 /* CoreTelephony.framework */; };
+		F370027818C0A5CB00D95551 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F370027718C0A5CB00D95551 /* Foundation.framework */; };
+		F370027A18C0A5CB00D95551 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F370027918C0A5CB00D95551 /* CoreGraphics.framework */; };
+		F370027C18C0A5CB00D95551 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F370027B18C0A5CB00D95551 /* UIKit.framework */; };
+		F370028218C0A5CB00D95551 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F370028018C0A5CB00D95551 /* InfoPlist.strings */; };
+		F370028418C0A5CB00D95551 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F370028318C0A5CB00D95551 /* main.m */; };
+		F370028818C0A5CB00D95551 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F370028718C0A5CB00D95551 /* AppDelegate.m */; };
+		F370028B18C0A5CB00D95551 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F370028918C0A5CB00D95551 /* Main.storyboard */; };
+		F370028E18C0A5CB00D95551 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F370028D18C0A5CB00D95551 /* ViewController.m */; };
+		F370029018C0A5CB00D95551 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F370028F18C0A5CB00D95551 /* Images.xcassets */; };
+		F37002B318C0A60E00D95551 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37002B218C0A60E00D95551 /* CoreLocation.framework */; };
+		F37002B518C0A63700D95551 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37002B418C0A63700D95551 /* Accelerate.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F37002B718C0A6A800D95551 /* BleshNotification.caf in Resources */ = {isa = PBXBuildFile; fileRef = F37002B618C0A6A800D95551 /* BleshNotification.caf */; };
+		F38A54AE1BEB7BAB006B7FD0 /* BleshSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38A54AD1BEB7BAB006B7FD0 /* BleshSDK.framework */; };
+		F3D6E4751BD67E1400E81EB9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6E4741BD67E1400E81EB9 /* AdSupport.framework */; };
+		F3ED564918E370D3002011F9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3ED564818E370D3002011F9 /* SystemConfiguration.framework */; };
+		F3ED564A18E370D9002011F9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37002AE18C0A5F800D95551 /* AudioToolbox.framework */; };
+		F3ED564F18E37104002011F9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3ED564C18E37104002011F9 /* Default@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F31FF23F1B3C44020001B400 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		F370027418C0A5CB00D95551 /* BleshDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleshDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F370027718C0A5CB00D95551 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F370027918C0A5CB00D95551 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F370027B18C0A5CB00D95551 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F370027F18C0A5CB00D95551 /* BleshDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BleshDemo-Info.plist"; sourceTree = "<group>"; };
+		F370028118C0A5CB00D95551 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F370028318C0A5CB00D95551 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F370028518C0A5CB00D95551 /* BleshDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BleshDemo-Prefix.pch"; sourceTree = "<group>"; };
+		F370028618C0A5CB00D95551 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F370028718C0A5CB00D95551 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F370028A18C0A5CB00D95551 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F370028C18C0A5CB00D95551 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F370028D18C0A5CB00D95551 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F370028F18C0A5CB00D95551 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F370029618C0A5CB00D95551 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F37002AE18C0A5F800D95551 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F37002B018C0A60400D95551 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F37002B218C0A60E00D95551 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F37002B418C0A63700D95551 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		F37002B618C0A6A800D95551 /* BleshNotification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BleshNotification.caf; sourceTree = "<group>"; };
+		F38A54AD1BEB7BAB006B7FD0 /* BleshSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BleshSDK.framework; sourceTree = "<group>"; };
+		F3D6E4741BD67E1400E81EB9 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		F3ED564818E370D3002011F9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F3ED564C18E37104002011F9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F370027118C0A5CB00D95551 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F38A54AE1BEB7BAB006B7FD0 /* BleshSDK.framework in Frameworks */,
+				F3D6E4751BD67E1400E81EB9 /* AdSupport.framework in Frameworks */,
+				F31FF2401B3C44020001B400 /* CoreTelephony.framework in Frameworks */,
+				F3ED564A18E370D9002011F9 /* AudioToolbox.framework in Frameworks */,
+				F3ED564918E370D3002011F9 /* SystemConfiguration.framework in Frameworks */,
+				F37002B518C0A63700D95551 /* Accelerate.framework in Frameworks */,
+				F37002B318C0A60E00D95551 /* CoreLocation.framework in Frameworks */,
+				F370027A18C0A5CB00D95551 /* CoreGraphics.framework in Frameworks */,
+				F370027C18C0A5CB00D95551 /* UIKit.framework in Frameworks */,
+				F370027818C0A5CB00D95551 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F370026B18C0A5CB00D95551 = {
+			isa = PBXGroup;
+			children = (
+				F370027D18C0A5CB00D95551 /* BleshDemo */,
+				F370027618C0A5CB00D95551 /* Frameworks */,
+				F370027518C0A5CB00D95551 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F370027518C0A5CB00D95551 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F370027418C0A5CB00D95551 /* BleshDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F370027618C0A5CB00D95551 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3D6E4741BD67E1400E81EB9 /* AdSupport.framework */,
+				F31FF23F1B3C44020001B400 /* CoreTelephony.framework */,
+				F3ED564818E370D3002011F9 /* SystemConfiguration.framework */,
+				F37002B418C0A63700D95551 /* Accelerate.framework */,
+				F37002B218C0A60E00D95551 /* CoreLocation.framework */,
+				F37002B018C0A60400D95551 /* AVFoundation.framework */,
+				F37002AE18C0A5F800D95551 /* AudioToolbox.framework */,
+				F370027718C0A5CB00D95551 /* Foundation.framework */,
+				F370027918C0A5CB00D95551 /* CoreGraphics.framework */,
+				F370027B18C0A5CB00D95551 /* UIKit.framework */,
+				F370029618C0A5CB00D95551 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F370027D18C0A5CB00D95551 /* BleshDemo */ = {
+			isa = PBXGroup;
+			children = (
+				F38A54AD1BEB7BAB006B7FD0 /* BleshSDK.framework */,
+				F3ED564C18E37104002011F9 /* Default@2x.png */,
+				F370028618C0A5CB00D95551 /* AppDelegate.h */,
+				F370028718C0A5CB00D95551 /* AppDelegate.m */,
+				F370028918C0A5CB00D95551 /* Main.storyboard */,
+				F370028C18C0A5CB00D95551 /* ViewController.h */,
+				F370028D18C0A5CB00D95551 /* ViewController.m */,
+				F370028F18C0A5CB00D95551 /* Images.xcassets */,
+				F370027E18C0A5CB00D95551 /* Supporting Files */,
+			);
+			path = BleshDemo;
+			sourceTree = "<group>";
+		};
+		F370027E18C0A5CB00D95551 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F37002B618C0A6A800D95551 /* BleshNotification.caf */,
+				F370027F18C0A5CB00D95551 /* BleshDemo-Info.plist */,
+				F370028018C0A5CB00D95551 /* InfoPlist.strings */,
+				F370028318C0A5CB00D95551 /* main.m */,
+				F370028518C0A5CB00D95551 /* BleshDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F370027318C0A5CB00D95551 /* BleshDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F37002A618C0A5CB00D95551 /* Build configuration list for PBXNativeTarget "BleshDemo" */;
+			buildPhases = (
+				F370027018C0A5CB00D95551 /* Sources */,
+				F370027118C0A5CB00D95551 /* Frameworks */,
+				F370027218C0A5CB00D95551 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BleshDemo;
+			productName = BleshDemo;
+			productReference = F370027418C0A5CB00D95551 /* BleshDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F370026C18C0A5CB00D95551 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = blesh;
+				TargetAttributes = {
+					F370027318C0A5CB00D95551 = {
+						DevelopmentTeam = 25979QE2W6;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = F370026F18C0A5CB00D95551 /* Build configuration list for PBXProject "BleshDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F370026B18C0A5CB00D95551;
+			productRefGroup = F370027518C0A5CB00D95551 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F370027318C0A5CB00D95551 /* BleshDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F370027218C0A5CB00D95551 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F370029018C0A5CB00D95551 /* Images.xcassets in Resources */,
+				F370028218C0A5CB00D95551 /* InfoPlist.strings in Resources */,
+				F37002B718C0A6A800D95551 /* BleshNotification.caf in Resources */,
+				F3ED564F18E37104002011F9 /* Default@2x.png in Resources */,
+				F370028B18C0A5CB00D95551 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F370027018C0A5CB00D95551 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F370028E18C0A5CB00D95551 /* ViewController.m in Sources */,
+				F370028818C0A5CB00D95551 /* AppDelegate.m in Sources */,
+				F370028418C0A5CB00D95551 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F370028018C0A5CB00D95551 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F370028118C0A5CB00D95551 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F370028918C0A5CB00D95551 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F370028A18C0A5CB00D95551 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F37002A418C0A5CB00D95551 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SOSYAL AGLAR ELEKTRONIK TICARET A S";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SOSYAL AGLAR ELEKTRONIK TICARET A S";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "198f54b0-57a7-4b72-840a-2be06f613496";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = armv7s;
+			};
+			name = Debug;
+		};
+		F37002A518C0A5CB00D95551 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SOSYAL AGLAR ELEKTRONIK TICARET A S";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SOSYAL AGLAR ELEKTRONIK TICARET A S";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "198f54b0-57a7-4b72-840a-2be06f613496";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7s;
+			};
+			name = Release;
+		};
+		F37002A718C0A5CB00D95551 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BleshDemo",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BleshDemo/BleshDemo-Prefix.pch";
+				INFOPLIST_FILE = "BleshDemo/BleshDemo-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blesh.offlinedemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s armv6";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F37002A818C0A5CB00D95551 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BleshDemo",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BleshDemo/BleshDemo-Prefix.pch";
+				INFOPLIST_FILE = "BleshDemo/BleshDemo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blesh.offlinedemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s armv6";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F370026F18C0A5CB00D95551 /* Build configuration list for PBXProject "BleshDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F37002A418C0A5CB00D95551 /* Debug */,
+				F37002A518C0A5CB00D95551 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F37002A618C0A5CB00D95551 /* Build configuration list for PBXNativeTarget "BleshDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F37002A718C0A5CB00D95551 /* Debug */,
+				F37002A818C0A5CB00D95551 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F370026C18C0A5CB00D95551 /* Project object */;
+}
