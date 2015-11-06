@@ -23,7 +23,7 @@ You just have to enter these serials manually
 - Api key
 - Api user
 
-The Api key and user information will be generated for you in the dashboard, you should simply copy those and use it in your application when you're starting the Blesh service, as you can see [here](docs/sdk/howto_android.md).
+The Api key and user information will be generated for you in the dashboard, you should simply copy those and use it in your application when you're starting the Blesh service, as you can see [here](docs/howto_android.md).
 
 ```
 startService(new BleshIntent.Builder("your_api_key", "your_api_user", "some_id").optionalKey("M").getIntent(this));
