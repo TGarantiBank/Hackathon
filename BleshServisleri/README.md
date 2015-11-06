@@ -25,8 +25,17 @@ You just have to enter these serials manually
 
 The Api key and user information will be generated for you in the dashboard, you should simply copy those and use it in your application when you're starting the Blesh service, as you can see [here](docs/howto_android.md).
 
+# Android
 ```
 startService(new BleshIntent.Builder("your_api_key", "your_api_user", "some_id").optionalKey("M").getIntent(this));
+```
+
+# iOS
+```
+[[Blesh sharedInstance] initBleshWithAPIUser:@"your_api_user"
+                                           APIKey:@"your_api_key"
+                                           integrationType:@"M"
+                                           integrationId:@"some_id"];
 ```
 
 Please note that all fields are String objects.
@@ -45,5 +54,5 @@ iBeacon is a small low powered Bluetooth Smart chip, which will advertise it's i
 
 [Blesh CMS](http://beacon.do/) is our backend service that provides content, again based on micro location. You can make your app load a url when it encounters a certain beacon, you can display custom visual content based on the time of day or you can even create a treasure hunt application using our CMS.
 
-See our detailed documentation [here](docs/BleshCMS_intro_eng.pdf) for in depth information about our CMS.
+See our detailed documentation [here](docs/cms/BleshCMS_intro_eng.md) for in depth information about our CMS.
 
