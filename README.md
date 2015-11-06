@@ -44,8 +44,10 @@ Bu adımların gerçekleştirimini aşağıdaki videodan izleyebilirsiniz.
 <a href="https://youtu.be/P3Ap9OLjP4o"  target="_blank"><img src="https://i.ytimg.com/vi/P3Ap9OLjP4o/default.jpg" 
 alt="Garanti Bankasi Hackathon" width="240" height="180" border="10" /></a>
 
-Daha detay bilgi ise [Wiki](<https://github.com/TGarantiBank/Hackathon/wiki>) sayfamızda mevcuttur.
+Daha detay bilgi ise [Wiki](<https://github.com/TGarantiBank/Hackathon/wiki/Hackhaton>) sayfamızda mevcuttur.
 
+İsterseniz, sunduğumuz servisleri, IBM Bluemix Cloud servisleri üzerinden kullanabilirsiniz. 
+Bunun için bilgisayarınıza herhangi bir kurulum yapmanıza gerek yok. [Wiki/IBM-Bluemix](<https://github.com/TGarantiBank/Hackathon/wiki/IBM-Bluemix>) sayfasındaki URL adresleri üzerinden API lere kolayca erişim sağlayabilirsiniz. Bu API'lerin kullanım şekli, kendi bilgisayarlarınıza kurduğunuz API'ler ile aynıdır
  
 
 
