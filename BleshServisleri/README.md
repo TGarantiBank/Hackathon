@@ -2,12 +2,12 @@ Blesh SDK github repository dedicated to GarantiHackathon
 
 ## Quick Start (Hello IoT!)
 
-1) Go [register and login](http://hackathon.blesh.com/)!
-2) Copy your Api Key and Api User from your dashboard.
-3) Grab the sample project for [Android](Android/HackathonSample) or [iOS](iOS/HackhatonSample) and use your api key/user pair as shown [here](docs).
-4) Enter your application's bundle name using your dashboard.
-5) Enter your beacon id list using your dashboard.
-6) Run your app and embrace the power of BLE. Welcome to IoT!
+1. Go [register and login](http://hackathon.blesh.com/)!
+2. Copy your Api Key and Api User from your dashboard.
+3. Grab the sample project for [Android](Android/HackathonSample) or [iOS](iOS/HackhatonSample) and use your api key/user pair as shown [here](docs).
+4. Enter your application's bundle name using your dashboard.
+5. Enter your beacon id list using your dashboard.
+6. Run your app and embrace the power of BLE. Welcome to IoT!
 
 ## Welcome
 
