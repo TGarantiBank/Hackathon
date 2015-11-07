@@ -6,16 +6,16 @@ Blesh SDK github repository dedicated to GarantiHackathon
 2. Copy your Api Key and Api User from your dashboard.
 3. Grab the sample project for [Android](Android/HackathonSample) or [iOS](iOS/HackhatonSample) and use your api key/user pair as shown [here](docs).
 4. Enter your application's bundle name using your dashboard.
-5. Enter your beacon id list using your dashboard.
+5. Register your beacons using your dashboard. You can get them from Blesh staff during the hackathon.
 6. Run your app and embrace the power of BLE. Welcome to IoT!
 
 ## Welcome
 
 Hello everyone, Blesh is pleased to welcome you all curious hackers!
 
-If you would like to use iBeacons as part of your project, we have created this repo will guide you through the process.
+If you want to use iBeacons in your project, we have created this guide to walk you through the process.
 
-First, go to our hackathon [register page](http://hackathon.blesh.com/) to claim your account. Once you're done with that, you'll be able to register your beacons(which you can acquire from our boot during the hackathon) and your application into our system, which will allow you to gather beacon distances from your application using our SDK.
+First, go to our hackathon [register page](http://hackathon.blesh.com/) to claim your account. Once you're done with that, you'll be able to register your beacons(which you can acquire from our booth during the hackathon) and your application into our system, which will allow you to gather beacon distances from your application using our SDK.
 
 - [How does it work?](#how-does-it-work)
 - [How can I use Blesh SDK with my application?](#how-can-i-use-blesh-sdk-with-my-application)
@@ -60,7 +60,7 @@ Please see platform specific documents if you want to use Blesh SDK in your own 
 
 ## How does it work?
 
-Blesh SDK is distributed as a library project. It works as a service in the background of your application process, periodically scanning for Blesh iBeacons within close proximity.
+Blesh SDK is distributed as a library project. It works as a service in the background of your application process, periodically scanning for Blesh iBeacons within close proximity. When Blesh SDK detects a beacon, your application will receive distance and id information for the detected beacons through the callback you'll implement. You may also display visual content using our [CMS](docs/cms/BleshCMS_intro_eng.md).
 
 ## How can I use Blesh SDK with my application?
 
@@ -78,13 +78,13 @@ You can scan for beacons within your telephone's range and get beacon distance i
 
 In order to scan for beacons within your proximity and display content based on micro location, you should integrate Blesh SDK into your project. Please see our docs for platform specific information and example projects.
 
-*Hint: You can use our empty projects as a baseline for your hackathon apps, they are simple empty projects that comes with already integrated Blesh SDK.
+*Hint: You can use our empty projects as a baseline for your hackathon apps, they are simply empty projects that comes with already integrated Blesh SDK. One for each platform(iOS/Android).
 
 ![workflow](img/blesh_sdk_workflow.png)
 
 ## What is iBeacon?
 
-iBeacon is a small low powered Bluetooth Smart chip, which will advertise it's id periodically constantly. We are using it for micro location services. Each beacon can be associated with the micro location that it's placed. You can then scan these beacons using our SDK, get beacon specific information such as the distance from your device and act on it(show notifications, setup triggers based on location or beacon etc., use your imagination!).
+iBeacon is a small low powered Bluetooth Smart chip, which will advertise it's unique id periodically, until it runs out of battery(~3 years). We are using it for micro location services. Each beacon can be associated with the micro location that it's placed at. You can then scan these beacons using our SDK, get beacon specific information such as the distance from your device and act on it(show notifications, setup triggers based on location or beacon id etc., use your imagination!).
 
 ![blesh](img/blesh.png)
 
@@ -93,4 +93,9 @@ iBeacon is a small low powered Bluetooth Smart chip, which will advertise it's i
 [Blesh CMS](http://beacon.do/) is our backend service that provides content, again based on micro location. You can make your app load a url when it encounters a certain beacon, you can display custom visual content based on the time of day or you can even create a treasure hunt application using our CMS.
 
 See our detailed documentation [here](docs/cms/BleshCMS_intro_eng.md) for in depth information about our CMS.
+
+
+Good luck and have fun!
+
+- Blesh
 
