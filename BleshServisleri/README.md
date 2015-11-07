@@ -25,12 +25,12 @@ You just have to enter these serials manually
 
 The Api key and user information will be generated for you in the dashboard, you should simply copy those and use it in your application when you're starting the Blesh service, as you can see [here](docs/howto_android.md).
 
-# Android
+### Android
 ```
 startService(new BleshIntent.Builder("your_api_key", "your_api_user", "some_id").optionalKey("M").getIntent(this));
 ```
 
-# iOS
+### iOS
 ```
 [[Blesh sharedInstance] initBleshWithAPIUser:@"your_api_user"
                                            APIKey:@"your_api_key"
@@ -40,7 +40,7 @@ startService(new BleshIntent.Builder("your_api_key", "your_api_user", "some_id")
 
 Please note that all fields are String objects.
 
-## Usage
+## How it works?
 
 In order to scan for beacons within your proximity and display content based on micro location, you should integrate Blesh SDK into your project. Please see our [wiki pages](docs/howto.md) for platform specific information and example project.
 

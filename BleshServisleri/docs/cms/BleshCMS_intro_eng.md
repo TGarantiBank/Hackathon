@@ -1,8 +1,17 @@
 **BLESH CMS**
 
-Administration Guide![image alt text](image_0.png)
+Administration Guide
 
-[[TOC]]
+- [Purpose](#purpose)
+- [Solution](#solution)
+- [Blesh CMS, a brief look](#blesh-cms-a-brief-look)
+    - [Login](#login)
+    - [Template Manager](#template-manager)
+        - [Creating Templates](#creating-templates)
+        - [Assigning templates to your beacons](#assigning-templates-to-your-beacons)
+    - [Device Assign Map](#device-assign-map)
+    - [Vendor Settings](#vendor-settings)
+
 
 # Purpose
 
@@ -40,7 +49,7 @@ When creating these templates, you can;
 
 * Preview your templates for mobile phones with various screen resolutions
 
-After you edit and save your templates, you can assign them to specific or multiple beacons in your account to display your users. 
+After you edit and save your templates, you can assign them to specific or multiple beacons in your account to display your users.
 
 ![image alt text](image_2.png)
 
