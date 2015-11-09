@@ -53,7 +53,7 @@ Bunun için bilgisayarınıza herhangi bir kurulum yapmanıza gerek yok. [Wiki/I
 Uygulamalarınızda iBeacon kullanmak isterseniz, [BleshServisleri](<https://github.com/TGarantiBank/Hackathon/tree/master/BleshServisleri>)'ni kullanabilirsiniz. Detaylı bilgiye [Wiki/Blesh](<https://github.com/TGarantiBank/Hackathon/wiki/Blesh>) sayfasından ulaşabilirsiniz.
 
 
- 
+Structure.io api'lerini kullanmak isterseniz, detaylı bilgiye [Structure](<https://github.com/TGarantiBank/Hackathon/wiki/Structure>) wiki sayfasından ulaşabilirsiniz. 
 
  
 
