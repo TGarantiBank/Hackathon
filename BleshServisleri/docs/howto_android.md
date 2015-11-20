@@ -66,3 +66,24 @@ BleshTemplateResult result = new BleshTemplateResult() {
 // Register your callback function, named as "result" for this example
 BleshInstance.sharedInstance().setTemplateResult(result);
 ```
+
+### Receiving Device Information & Proximity
+
+```
+// BleshDeviceListCallback is an interface you can implement and override it's receiver function
+BleshInstance.sharedInstance().setBleshDeviceListCallback(new BleshDeviceListCallback() {
+    @Override
+    public void bleshDeviceListCallback(ArrayList<BleshDeviceInfoModel> arrayList) {
+
+        for( BleshDeviceInfoModel device : arrayList){
+
+            /*  Barcode   */    device.getBarcodeId();
+            /*  Serial    */    device.getDeviceSerial();
+            /*  Factor    */    device.getFactor();
+            /*  Proximity */    device.getProximity();
+            /*  Rssi      */    device.getRssi();
+
+        }
+    }
+});
+```

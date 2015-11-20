@@ -64,9 +64,9 @@ Blesh SDK is distributed as a library project. It works as a service in the back
 
 ## How can I use Blesh SDK with my application?
 
-[Blesh Integration for iOS](howto_ios.md)
+[Blesh Integration for iOS](docs/howto_ios.md)
 
-[Blesh Integration for Android Studio](howto_android.md)
+[Blesh Integration for Android Studio](docs/howto_android.md)
 
 ## What do you mean by close proximity?
 
